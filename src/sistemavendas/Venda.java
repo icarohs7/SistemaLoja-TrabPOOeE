@@ -75,7 +75,16 @@ public class Venda {
 		}
 	}
 	
+	/**
+	 * Gets valor total.
+	 *
+	 * @return valor total
+	 */
 	public double getValorTotal() {
+		valorTotal = 0;
+		
+		produtos.forEach( ( produto, quantidade ) -> valorTotal += ( produto.getPreco() * quantidade ) );
+		
 		return valorTotal;
 	}
 	
@@ -85,5 +94,15 @@ public class Venda {
 	private void fecharVenda() {
 		fechada = true;
 		produtos.forEach( ( produto, quantidade ) -> estoque.reduzirEstoque( produto, quantidade ) );
+		VendasCompletadas.adicionarVenda( this );
+	}
+	
+	/**
+	 * Gets data.
+	 *
+	 * @return data
+	 */
+	public LocalDateTime getData() {
+		return data;
 	}
 }
