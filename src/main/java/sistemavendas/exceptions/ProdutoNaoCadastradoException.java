@@ -1,4 +1,4 @@
-package sistemavendas;
+package sistemavendas.exceptions;
 
 /**
  * The type Produto nao cadastrado exception.

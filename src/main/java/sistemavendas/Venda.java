@@ -3,6 +3,9 @@ package sistemavendas;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+import sistemavendas.exceptions.EstoqueInsuficienteException;
+import sistemavendas.exceptions.ProdutoNaoCadastradoException;
+
 /**
  * The type Venda.
  */
