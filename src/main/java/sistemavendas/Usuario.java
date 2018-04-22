@@ -4,7 +4,13 @@ package sistemavendas;
  * The type Usuario.
  */
 public abstract class Usuario {
+	/**
+	 * Id.
+	 */
 	private String id;
+	/**
+	 * Senha.
+	 */
 	private String senha;
 	
 	/**

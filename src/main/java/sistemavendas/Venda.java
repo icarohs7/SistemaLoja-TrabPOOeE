@@ -100,7 +100,7 @@ public class Venda {
 	/**
 	 * Gets data.
 	 *
-	 * @return data
+	 * @return data data
 	 */
 	public LocalDateTime getData() {
 		return data;
