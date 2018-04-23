@@ -61,18 +61,12 @@ public abstract class Usuario {
 	}
 	
 	/**
-	 * Verificar conta.
+	 * Verifica se a conta de usuário informada é válida
 	 *
-	 * @param nome  the nome
-	 * @param senha the senha
+	 * @param login Nome de usuário
+	 * @param senha Senha do usuário
+	 *
+	 * @return verdadeiro se a conta for válida e falso do contrário
 	 */
-	public void verificarConta( String nome, String senha ) {
-		if ( !nome.equals( this.id ) || !senha.equals( this.senha ) ) {//login invalido
-			System.out.println( "Senha invalida" );
-		} else if ( id.equals( "ADMIN" ) && senha.equals( "ADMIN" ) ) {
-			//vou colocar algo aqui
-		} else {//login usuario
-			//vou colocar algo aqui
-		}
-	}
+	public abstract boolean verificarConta( String login, String senha );
 }

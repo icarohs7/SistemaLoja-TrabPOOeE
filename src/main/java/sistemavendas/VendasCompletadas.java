@@ -24,4 +24,14 @@ public class VendasCompletadas {
 	public static void adicionarVenda( Venda venda ) {
 		vendas.add( venda );
 	}
+	
+	
+	/**
+	 * Gets vendas.
+	 *
+	 * @return the vendas
+	 */
+	public static ArrayList<Venda> getVendas() {
+		return vendas;
+	}
 }
