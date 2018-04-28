@@ -1,7 +1,7 @@
 package sistemavendas;
 
 /**
- * The type Gerente.
+ * The type Gerente
  */
 class Gerente extends Usuario {
 	/**

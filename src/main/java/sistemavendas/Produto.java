@@ -1,9 +1,11 @@
 package sistemavendas;
 
+import sistemavendas.exceptions.PrecoInvalidoException;
+
 /**
  * Classe representando um produto
  */
-public class Produto {
+class Produto {
 	/**
 	 * Descrição do produto
 	 */
@@ -19,9 +21,9 @@ public class Produto {
 	 * @param descricao A descrição do produto
 	 * @param preco     O preço do produto
 	 */
-	public Produto( String descricao, double preco ) {
+	Produto( String descricao, double preco ) {
 		this.descricao = descricao;
-		this.preco = preco;
+		setPreco( preco );
 	}
 	
 	/**
@@ -29,7 +31,7 @@ public class Produto {
 	 *
 	 * @return the descricao
 	 */
-	public String getDescricao() {
+	String getDescricao() {
 		return descricao;
 	}
 	
@@ -38,7 +40,7 @@ public class Produto {
 	 *
 	 * @param descricao the descricao
 	 */
-	public void setDescricao( String descricao ) {
+	void setDescricao( String descricao ) {
 		this.descricao = descricao;
 	}
 	
@@ -47,7 +49,7 @@ public class Produto {
 	 *
 	 * @return the preco
 	 */
-	public double getPreco() {
+	double getPreco() {
 		return preco;
 	}
 	
@@ -56,7 +58,11 @@ public class Produto {
 	 *
 	 * @param preco the preco
 	 */
-	public void setPreco( double preco ) {
+	void setPreco( double preco ) {
+		if ( preco <= 0 ) {
+			throw new PrecoInvalidoException( "Não é possível cadastrar um produto sem valor ou com valor negativo" );
+		}
+		
 		this.preco = preco;
 	}
 }

@@ -1,5 +1,7 @@
 package sistemavendas;
 
+import java.util.ArrayList;
+
 /**
  * The type Usuario.
  */
@@ -12,6 +14,10 @@ public abstract class Usuario {
 	 * Senha.
 	 */
 	private String senha;
+	/**
+	 * Usuarios cadastrados.
+	 */
+	protected static ArrayList<Usuario> usuariosCadastrados;
 	
 	/**
 	 * Instantiates a new Usuario.
@@ -19,47 +25,20 @@ public abstract class Usuario {
 	 * @param id    the id
 	 * @param senha the senha
 	 */
-	public Usuario( String id, String senha ) {
+	Usuario( String id, String senha ) {
 		this.id = id;
 		this.senha = senha;
 	}
 	
 	/**
-	 * Gets id.
+	 * Alterar senha boolean.
 	 *
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-	
-	/**
-	 * Sets id.
+	 * @param antiga the antiga
+	 * @param nova   the nova
 	 *
-	 * @param id the id
+	 * @return the boolean
 	 */
-	public void setId( String id ) {
-		this.id = id;
-	}
-	
-	/**
-	 * Gets senha.
-	 *
-	 * @return the senha
-	 */
-	public String getSenha() {
-		return senha;
-	}
-	
-	/**
-	 * Sets senha.
-	 *
-	 * @param senha the senha
-	 */
-	public void setSenha( String senha ) {
-		this.senha = senha;
-	}
-	
+	abstract boolean alterarSenha( String antiga, String nova );
 	/**
 	 * Verifica se a conta de usuário informada é válida
 	 *
@@ -68,5 +47,5 @@ public abstract class Usuario {
 	 *
 	 * @return verdadeiro se a conta for válida e falso do contrário
 	 */
-	public abstract boolean verificarConta( String login, String senha );
+	abstract boolean fazerLogin( String login, String senha );
 }
