@@ -3,6 +3,7 @@ package sistemavendas;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+import sistemavendas.catalogo.Produto;
 import sistemavendas.exceptions.EstoqueInsuficienteException;
 import sistemavendas.exceptions.OperacaoInvalidaException;
 import sistemavendas.exceptions.ProdutoNaoCadastradoException;
@@ -10,7 +11,7 @@ import sistemavendas.exceptions.ProdutoNaoCadastradoException;
 /**
  * The type Venda.
  */
-public class Venda {
+class Venda {
 	/**
 	 * Produtos.
 	 */
@@ -80,11 +81,13 @@ public class Venda {
 		}
 		/* Lançar uma exceção caso o usuário tente adicionar uma quantidade de produtos maior que a presente
 		 * no estoque */
-		if ( estoque.getProdutos().get( produto ) < quantidade ) {
+		if ( estoque.getProdutos()
+				     .get( produto ) < quantidade ) {
 			throw new EstoqueInsuficienteException( "Não há quantidade suficiente do produto em estoque" );
 		}
 		/* Lançar uma exceção caso o usuário tente adicionar à venda um produto não cadastrado */
-		if ( !estoque.getProdutos().containsKey( produto ) ) {
+		if ( !estoque.getProdutos()
+				.containsKey( produto ) ) {
 			throw new ProdutoNaoCadastradoException( "O produto não está cadastrado no sistema" );
 		}
 		/* Se o produto já estiver presente na venda, incrementar sua quantidade */

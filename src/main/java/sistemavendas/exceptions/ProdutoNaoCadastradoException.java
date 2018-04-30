@@ -3,7 +3,7 @@ package sistemavendas.exceptions;
 /**
  * The type Produto nao cadastrado exception.
  */
-public class ProdutoNaoCadastradoException extends RuntimeException {
+public class ProdutoNaoCadastradoException extends SistemaLojaException {
 	/**
 	 * Instantiates a new Produto nao cadastrado exception.
 	 *

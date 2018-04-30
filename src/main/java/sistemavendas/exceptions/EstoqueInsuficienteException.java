@@ -3,7 +3,7 @@ package sistemavendas.exceptions;
 /**
  * The type Estoque insuficiente exception.
  */
-public class EstoqueInsuficienteException extends RuntimeException {
+public class EstoqueInsuficienteException extends SistemaLojaException {
 	/**
 	 * Instantiates a new Estoque insuficiente exception.
 	 *

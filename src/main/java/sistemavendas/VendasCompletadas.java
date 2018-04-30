@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The type Vendas completadas.
  */
-public class VendasCompletadas {
+class VendasCompletadas {
 	/**
 	 * The constant vendas.
 	 */
@@ -21,7 +21,7 @@ public class VendasCompletadas {
 	 *
 	 * @param venda venda
 	 */
-	public static void adicionarVenda( Venda venda ) {
+	static void adicionarVenda( Venda venda ) {
 		vendas.add( venda );
 	}
 	
@@ -31,7 +31,7 @@ public class VendasCompletadas {
 	 *
 	 * @return the vendas
 	 */
-	public static ArrayList<Venda> getVendas() {
+	static ArrayList<Venda> getVendas() {
 		return vendas;
 	}
 }

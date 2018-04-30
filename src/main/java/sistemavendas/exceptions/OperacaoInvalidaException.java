@@ -3,7 +3,7 @@ package sistemavendas.exceptions;
 /**
  * The type Operacao invalida exception.
  */
-public class OperacaoInvalidaException extends RuntimeException {
+public class OperacaoInvalidaException extends SistemaLojaException {
 	/**
 	 * Instantiates a new Operacao invalida exception.
 	 *

@@ -3,7 +3,7 @@ package sistemavendas.exceptions;
 /**
  * The type Preco invalido exception.
  */
-public class PrecoInvalidoException extends RuntimeException {
+public class PrecoInvalidoException extends SistemaLojaException {
 	/**
 	 * Instantiates a new Preco invalido exception.
 	 *
