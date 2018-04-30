@@ -2,7 +2,9 @@ package sistemavendas.autenticacao;
 
 import java.util.ArrayList;
 
+
 import sistemavendas.Venda;
+import sistemavendas.catalogo.Produto;
 import sistemavendas.exceptions.PagamentoDinheiroExceptions;
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
@@ -97,6 +99,15 @@ public class Operador extends Usuario {
 			return true;
 		}
 	}
+        
+        
+        public void registrarItem(Produto produto){
+            vendaEmAndamento.adicionarProduto(produto, 1);
+        }
+        
+        public void registrarVenda(Produto produto, int quantidade){
+            vendaEmAndamento = new Venda(produto, quantidade);
+        }
         
         public double receberPagamentoDinheiro(double quantia){
             if(quantia < vendaEmAndamento.getValorTotal()){
