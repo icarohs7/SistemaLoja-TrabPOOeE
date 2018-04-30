@@ -45,7 +45,7 @@ public class Venda {
 	 * @throws ProdutoNaoCadastradoException produto nao cadastrado exception
 	 * @throws OperacaoInvalidaException     operacao invalida exception
 	 */
-	public Venda( Produto produtoInicial, int quantidade, Estoque estoque )
+	public Venda( Produto produtoInicial, int quantidade)
 			throws EstoqueInsuficienteException, ProdutoNaoCadastradoException, OperacaoInvalidaException {
 		/* Abre uma nova venda ao escanear o primeiro produto */
 		fechada = false;
@@ -56,10 +56,8 @@ public class Venda {
 		/* No início, o valor total da venda equivale ao preço do produto multiplicado
 		 * pela sua quantidade */
 		valorTotal = produtoInicial.getPreco() * quantidade;
-		/* Associa o estoque recebido à venda atual */
-		this.estoque = estoque;
 		/* Adiciona o primeiro produto à venda */
-		adicionarProduto( produtoInicial, quantidade, estoque );
+		adicionarProduto( produtoInicial, quantidade);
 	}
 	
 	/**
@@ -73,7 +71,7 @@ public class Venda {
 	 * @throws ProdutoNaoCadastradoException the produto nao cadastrado exception
 	 * @throws OperacaoInvalidaException     the operacao invalida exception
 	 */
-	public void adicionarProduto( Produto produto, int quantidade, Estoque estoque )
+	public void adicionarProduto( Produto produto, int quantidade)
 			throws EstoqueInsuficienteException, ProdutoNaoCadastradoException, OperacaoInvalidaException {
 		/* Lançar uma exceção caso o usuário tente adicionar um produto à venda depois de fechada */
 		if ( fechada ) {
