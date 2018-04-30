@@ -2,10 +2,10 @@ package sistemavendas.autenticacao;
 
 import java.util.ArrayList;
 
-
+import sistemavendas.Estoque;
 import sistemavendas.Venda;
 import sistemavendas.catalogo.Produto;
-import sistemavendas.exceptions.PagamentoDinheiroExceptions;
+import sistemavendas.exceptions.PagamentoDinheiroException;
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
 
@@ -13,8 +13,7 @@ import sistemavendas.exceptions.UsuarioNaoExisteException;
  * The type Operador.
  */
 public class Operador extends Usuario {
-	private Venda vendaEmAndamento;
-        /**
+	/**
 	 * Usuarios cadastrados.
 	 */
 	private static ArrayList<Operador> usuariosCadastrados;
@@ -42,6 +41,11 @@ public class Operador extends Usuario {
 		usuariosCadastrados.add( new Operador( login, senha, 1532 ) );
 		return true;
 	}
+	
+	/**
+	 * Venda em andamento.
+	 */
+	private Venda vendaEmAndamento;
 	
 	
 	/**
@@ -99,30 +103,68 @@ public class Operador extends Usuario {
 			return true;
 		}
 	}
-        
-        
-        public void registrarItem(Produto produto){
-            vendaEmAndamento.adicionarProduto(produto, 1);
-        }
-        
-        public void registrarVenda(Produto produto, int quantidade){
-            vendaEmAndamento = new Venda(produto, quantidade);
-        }
-        
-        public double receberPagamentoDinheiro(double quantia){
-            if(quantia < vendaEmAndamento.getValorTotal()){
-                throw new PagamentoDinheiroExceptions("A quantia não capaz de cobrir o valor total.");
-            }
-            quantia -= vendaEmAndamento.getValorTotal();
-            return quantia;
-        }
-        
-        public boolean receberPagamentoCartao(String numCartao){
-            return true;
-        }
-        
-        public boolean receberPagamentoCheque(String identidade){
-            return true;
-        }
-        
+	
+	
+	/**
+	 * Registrar item.
+	 *
+	 * @param produto the produto
+	 * @param estoque the estoque
+	 */
+	public void registrarItem( Produto produto, Estoque estoque ) {
+		if ( vendaEmAndamento == null ) {
+			registrarVenda( produto, 1, estoque );
+		} else {
+			vendaEmAndamento.registrarItem( produto, 1 );
+		}
+	}
+	
+	/**
+	 * Registrar venda.
+	 *
+	 * @param produto    the produto
+	 * @param quantidade the quantidade
+	 * @param estoque    the estoque
+	 */
+	public void registrarVenda( Produto produto, int quantidade, Estoque estoque ) {
+		vendaEmAndamento = new Venda( produto, quantidade, estoque );
+	}
+	
+	/**
+	 * Receber pagamento dinheiro double.
+	 *
+	 * @param quantia the quantia
+	 *
+	 * @return the double
+	 */
+	public double receberPagamentoDinheiro( double quantia ) {
+		if ( quantia < vendaEmAndamento.getValorTotal() ) {
+			throw new PagamentoDinheiroException( "A quantia nï¿½o capaz de cobrir o valor total." );
+		}
+		quantia -= vendaEmAndamento.getValorTotal();
+		return quantia;
+	}
+	
+	/**
+	 * Receber pagamento cartao boolean.
+	 *
+	 * @param numCartao the num cartao
+	 *
+	 * @return the boolean
+	 */
+	public boolean receberPagamentoCartao( String numCartao ) {
+		return true;
+	}
+	
+	/**
+	 * Receber pagamento cheque boolean.
+	 *
+	 * @param identidade the identidade
+	 *
+	 * @return the boolean
+	 */
+	public boolean receberPagamentoCheque( String identidade ) {
+		return true;
+	}
+	
 }

@@ -23,6 +23,7 @@ public class Aplicacao {
 		} catch ( UnsupportedLookAndFeelException ignored ) {
 		}
 		/* Iniciar aplicação */
-		new LoginViewGerente( "Sistema de Vendas" ).setVisible( true );
+		new LoginViewGerente( "Sistema de Vendas" );
+		//		new LoginViewOperador( "Sistema de Vendas" );
 	}
 }

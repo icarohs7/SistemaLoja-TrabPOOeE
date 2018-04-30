@@ -10,7 +10,7 @@ import sistemavendas.exceptions.ProdutoNaoCadastradoException;
 /**
  * Classe representando o estoque da loja
  */
-class Estoque {
+public class Estoque {
 	/**
 	 * Lista de produtos cadastrados e sua quantidade em estoque
 	 */
@@ -26,7 +26,7 @@ class Estoque {
 	 * @param produto    O produto do qual será reduzido o estoque
 	 * @param quantidade A quantidade a ser reduzida do estoque
 	 */
-	void reduzirEstoque( Produto produto, int quantidade ) {
+	public void reduzirEstoque( Produto produto, int quantidade ) {
 		sincronizarEstoque();
 		if ( !produtos.containsKey( produto ) ) {
 			throw new ProdutoNaoCadastradoException(
@@ -57,7 +57,7 @@ class Estoque {
 	 *
 	 * @return the produtos
 	 */
-	HashMap<Produto, Integer> getProdutos() {
+	public HashMap<Produto, Integer> getProdutos() {
 		return produtos;
 	}
 	
@@ -67,7 +67,7 @@ class Estoque {
 	 * @param produto    O produto que terá sua quantidade em estoque incrementada
 	 * @param quantidade A quantidade adicionada ao estoque
 	 */
-	void incrementarEstoque( Produto produto, int quantidade ) {
+	public void incrementarEstoque( Produto produto, int quantidade ) {
 		sincronizarEstoque();
 		if ( !produtos.containsKey( produto ) ) {
 			throw new ProdutoNaoCadastradoException( "O produto não está cadastrado, cadastre-o primeiro." );

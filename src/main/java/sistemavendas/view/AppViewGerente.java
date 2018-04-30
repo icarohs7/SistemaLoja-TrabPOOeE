@@ -2,8 +2,6 @@ package sistemavendas.view;
 
 import net.miginfocom.swing.MigLayout;
 
-import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,8 +39,12 @@ public class AppViewGerente extends JFrame {
 		pack();
 		/* Definir a operação de fechamento da janela */
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		/* Ajustar tamanho */
+		setSize( 400, getHeight() );
 		/* Centralizar a janela */
 		setLocationRelativeTo( null );
+		/* Tornar visível */
+		setVisible( true );
 	}
 	
 	/**
@@ -50,26 +52,33 @@ public class AppViewGerente extends JFrame {
 	 */
 	private void criarComponentes() {
 		/* Instanciar painel raiz */
-		root = new JPanel( new MigLayout() );
+		root = new JPanel( new MigLayout( "fillx" ) );
 		
-		/* Criar label título */
-		JLabel titulo = new JLabel( "Selecione a operação desejada" );
-		/* Fonte do título */
-		Font h1 = new Font( "SansSerif", Font.BOLD, 18 );
+		/* Criar as labels de título */
+		JLabel titulo1 = new JLabel( "Bem Vindo(a)!" );
+		JLabel titulo2 = new JLabel( "Selecione a operação desejada" );
 		/* Definir fonte do título */
-		titulo.setFont( h1 );
+		titulo1.setFont( ViewUtils.FONT_H1 );
+		titulo2.setFont( ViewUtils.FONT_H1 );
 		
 		/* Botão iniciar sistema */
 		JButton iniciarSistemaBtn = new JButton( "Iniciar Sistema" );
+		/* Ação ao clicar no botão iniciar sistema */
+		iniciarSistemaBtn.addActionListener( ( evt ) -> {
+			dispose();
+			gerente.iniciarSistema();
+		} );
 		
 		/* Botão finalizar sistema */
 		JButton finalizarSistemaBtn = new JButton( "Finalizar Sistema" );
 		/* Ação ao clicar no botão finalizar sistema */
-		finalizarSistemaBtn.addActionListener( ( evt ) -> dispose() );
+		finalizarSistemaBtn.addActionListener(
+				( evt ) -> gerente.finalizarSistema() );
 		
 		/* Adicionar componentes ao painel raiz */
-		root.add( titulo, "center, span 3, wrap" );
-		root.add( iniciarSistemaBtn, "span 2" );
-		root.add( finalizarSistemaBtn, "align right" );
+		root.add( titulo1, "center, span, wrap" );
+		root.add( titulo2, "center, span, wrap, gapbottom 20" );
+		root.add( iniciarSistemaBtn, "grow" );
+		root.add( finalizarSistemaBtn, "grow" );
 	}
 }

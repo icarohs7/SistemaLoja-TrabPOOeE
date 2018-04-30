@@ -2,6 +2,9 @@ package sistemavendas.view;
 
 import net.miginfocom.swing.MigLayout;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,14 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import sistemavendas.autenticacao.Gerente;
+import sistemavendas.autenticacao.Operador;
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
 
 /**
  * The type Login view.
  */
-public class LoginViewGerente extends JFrame {
+public class LoginViewOperador extends JFrame {
 	/**
 	 * Root.
 	 */
@@ -37,7 +40,7 @@ public class LoginViewGerente extends JFrame {
 	 *
 	 * @param s s
 	 */
-	public LoginViewGerente( String s ) {
+	public LoginViewOperador( String s ) {
 		super( s );
 		/* Procedimento de definição de componentes */
 		criarComponentes();
@@ -47,11 +50,11 @@ public class LoginViewGerente extends JFrame {
 		pack();
 		/* Definir a operação de fechamento da janela */
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-		/* Ajustar tamanho */
+		/* Ajustar tamanho da janela */
 		setSize( 400, getHeight() );
 		/* Centralizar a janela */
 		setLocationRelativeTo( null );
-		/* Tornar visível */
+		/* Tornar visivel */
 		setVisible( true );
 	}
 	
@@ -62,11 +65,26 @@ public class LoginViewGerente extends JFrame {
 		/* Instanciar painel raiz */
 		root = new JPanel( new MigLayout( "fillx" ) );
 		
-		/* Listener utilizado para reconhecer o pressionar da tecla enter */
-		EnterListener enterListener = new EnterListener( this::realizarLogin );
+		/* Listener responsável por logar ao se pressionar a tecla enter */
+		KeyListener enterListener = new KeyListener() {
+			@Override
+			public void keyTyped( KeyEvent keyEvent ) {
+			}
+			
+			@Override
+			public void keyPressed( KeyEvent keyEvent ) {
+				if ( keyEvent.getKeyCode() == KeyEvent.VK_ENTER ) {
+					realizarLogin();
+				}
+			}
+			
+			@Override
+			public void keyReleased( KeyEvent keyEvent ) {
+			}
+		};
 		
 		/* Criar label título */
-		JLabel titulo = new JLabel( "Informe um login de gerente" );
+		JLabel titulo = new JLabel( "Informe um login de operador" );
 		/* Definir fonte do título */
 		titulo.setFont( ViewUtils.FONT_H1 );
 		
@@ -87,20 +105,20 @@ public class LoginViewGerente extends JFrame {
 		/* Botão de registrar */
 		JButton registrarButton = new JButton( "Registrar" );
 		/* Adicionar ação ao clique do botão */
-		registrarButton.addActionListener(
-				( evt ) -> {
-					dispose();
-					new CadastroViewGerente( "Sistema de Vendas - Cadastrar Gerente" );
-				} );
+		registrarButton.addActionListener( ( evt ) -> {
+			dispose();
+			new CadastroViewOperador( "Sistema de Vendas - Cadastrar Operador" );
+		} );
 		
 		/* Botão de entrar */
 		JButton entrarButton = new JButton( "Entrar" );
 		/* Adicionar ação ao clique do botão */
-		entrarButton.addActionListener(
-				( evt ) -> realizarLogin() );
+		entrarButton.addActionListener( ( evt ) -> {
+			realizarLogin();
+		} );
 		
 		/* Adicionar componentes à raiz */
-		root.add( titulo, "span, center, wrap, gapbottom 20" );
+		root.add( titulo, "center, span, wrap, gapbottom 20" );
 		root.add( loginLabel );
 		root.add( loginField, "grow, wrap" );
 		root.add( senhaLabel );
@@ -119,11 +137,13 @@ public class LoginViewGerente extends JFrame {
 		String senha = new String( senhaField.getPassword() );
 		/* Autenticar usuário */
 		try {
-			Gerente gerente = new Gerente( login, senha );
+			Operador gerente = new Operador( login, senha );
 			/* Entrar no sistema */
 			JOptionPane.showMessageDialog( null, "Logado com sucesso!" );
+			/* Fechar a janela */
 			dispose();
-			new AppViewGerente( "Sistema de Vendas", gerente );
+			/* Criar a tela da aplicação do operador */
+			new AppViewOperador( "Sistema de Vendas" );
 		} catch ( SenhaIncorretaException e ) {
 			JOptionPane.showMessageDialog( null, "A senha está incorreta" );
 		} catch ( UsuarioNaoExisteException e ) {
