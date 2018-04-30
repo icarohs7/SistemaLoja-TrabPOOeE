@@ -2,6 +2,8 @@ package sistemavendas.autenticacao;
 
 import java.util.ArrayList;
 
+import sistemavendas.Venda;
+import sistemavendas.exceptions.PagamentoDinheiroExceptions;
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
 
@@ -9,7 +11,8 @@ import sistemavendas.exceptions.UsuarioNaoExisteException;
  * The type Operador.
  */
 public class Operador extends Usuario {
-	/**
+	private Venda vendaEmAndamento;
+        /**
 	 * Usuarios cadastrados.
 	 */
 	private static ArrayList<Operador> usuariosCadastrados;
@@ -94,4 +97,21 @@ public class Operador extends Usuario {
 			return true;
 		}
 	}
+        
+        public double receberPagamentoDinheiro(double quantia){
+            if(quantia < vendaEmAndamento.getValorTotal()){
+                throw new PagamentoDinheiroExceptions("A quantia não capaz de cobrir o valor total.");
+            }
+            quantia -= vendaEmAndamento.getValorTotal();
+            return quantia;
+        }
+        
+        public boolean receberPagamentoCartao(String numCartao){
+            return true;
+        }
+        
+        public boolean receberPagamentoCheque(String identidade){
+            return true;
+        }
+        
 }

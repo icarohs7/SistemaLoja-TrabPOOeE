@@ -11,7 +11,7 @@ import sistemavendas.exceptions.ProdutoNaoCadastradoException;
 /**
  * The type Venda.
  */
-class Venda {
+public class Venda {
 	/**
 	 * Produtos.
 	 */
