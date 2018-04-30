@@ -60,7 +60,7 @@ public class LoginViewGerente extends JFrame {
 	 */
 	private void criarComponentes() {
 		/* Instanciar painel raiz */
-		root = new JPanel( new MigLayout( "center" ) );
+		root = new JPanel( new MigLayout() );
 		
 		/* Listener responsável por logar ao se pressionar a tecla enter */
 		KeyListener enterListener = new KeyListener() {
@@ -125,7 +125,10 @@ public class LoginViewGerente extends JFrame {
 		/* Autenticar usuário */
 		try {
 			Gerente gerente = new Gerente( login, senha );
+			/* Entrar no sistema */
 			JOptionPane.showMessageDialog( null, "Logado com sucesso!" );
+			dispose();
+			new AppViewGerente( "Sistema de Vendas", gerente ).setVisible( true );
 		} catch ( SenhaIncorretaException e ) {
 			JOptionPane.showMessageDialog( null, "A senha está incorreta" );
 		} catch ( UsuarioNaoExisteException e ) {
