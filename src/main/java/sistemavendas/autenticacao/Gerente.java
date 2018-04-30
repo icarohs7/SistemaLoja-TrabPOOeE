@@ -17,7 +17,7 @@ public class Gerente extends Usuario {
 	static {
 		usuariosCadastrados = new ArrayList<>();
 		/* Cadastrar o usuário padrão */
-		usuariosCadastrados.add( new Gerente( "ADMIN", "ADMIN" ) );
+		usuariosCadastrados.add( new Gerente( "ADMIN", "ADMIN", 1532 ) );
 	}
 	
 	/**

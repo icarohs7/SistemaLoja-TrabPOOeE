@@ -21,7 +21,7 @@ class Estoque {
 	}
 	
 	/**
-	 * Reduzir em 1 a quantidade em estoque de um produto
+	 * Reduzir a quantidade em estoque de um produto
 	 *
 	 * @param produto    O produto do qual será reduzido o estoque
 	 * @param quantidade A quantidade a ser reduzida do estoque
