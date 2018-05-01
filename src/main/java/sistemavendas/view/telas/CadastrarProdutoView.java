@@ -78,8 +78,14 @@ public class CadastrarProdutoView extends JFrame {
 		/* Campo de texto para preço com ação para o pressionar da tecla enter */
 		precoField = new EnterKeyListenerField( new EnterListener( this::cadastrar ) );
 		
-		/* Botão cadastrar */
-		JButton cadastrarBtn = new ActionButton( "Cadastrar", ( evt ) -> cadastrar() );
+		/* Botão cancelar */
+		JButton cancelarBtn = new ActionButton( "Cancelar", ( evt ) -> dispose() );
+		
+		/* Botão adicionar */
+		JButton adicionarBtn = new ActionButton( "Adicionar", ( evt ) -> cadastrar() );
+		
+		/* Botão finalizar */
+		JButton finalizarBtn = new ActionButton( "Finalizar", ( evt ) -> dispose() );
 		
 		/* Adicionar elementos ao painel */
 		root.add( titulo, "center, span, gapbottom 20, wrap" );
@@ -87,7 +93,7 @@ public class CadastrarProdutoView extends JFrame {
 		root.add( descField, "grow, wrap" );
 		root.add( precolabel );
 		root.add( precoField, "grow, wrap" );
-		root.add( cadastrarBtn, "grow, span" );
+		root.add( adicionarBtn, "grow, span" );
 	}
 	
 	/**
@@ -105,6 +111,7 @@ public class CadastrarProdutoView extends JFrame {
 		
 		CatalogoProdutos.getInstance().CadastrarProduto( new Produto( descricao, preco ) );
 		ViewUtil.showMessage( "Produto cadastrado com sucesso!" );
-		dispose();
+		descField.setText( "" );
+		precoField.setText( "" );
 	}
 }

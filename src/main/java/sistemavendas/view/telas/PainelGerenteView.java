@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import sistemavendas.autenticacao.Gerente;
+import sistemavendas.catalogo.CatalogoProdutos;
 import sistemavendas.view.util.ActionButton;
 import sistemavendas.view.util.FontLabel;
 import sistemavendas.view.util.ViewUtil;
@@ -63,6 +64,22 @@ public class PainelGerenteView extends JFrame {
 		JLabel titulo1 = new FontLabel( "Bem Vindo(a)!", ViewUtil.FONT_H1 );
 		JLabel titulo2 = new FontLabel( "Selecione a operação desejada", ViewUtil.FONT_H1 );
 		
+		/* Label número de produtos */
+		JLabel numProdutosLabel = new JLabel();
+		/* Thread para manter o número de produtos atualizado */
+		Thread numProdutosThread = new Thread( () -> {
+			while ( !Thread.interrupted() ) {
+				numProdutosLabel.setText( "Qtd. de produtos cadastrados: "
+				                          + CatalogoProdutos.getInstance().getProdutos().size() );
+				try {
+					Thread.sleep( 1000 );
+				} catch ( InterruptedException e ) {
+					e.printStackTrace();
+				}
+			}
+		} );
+		numProdutosThread.start();
+		
 		/* Botão iniciar sistema */
 		JButton iniciarSistemaBtn = new ActionButton( "Iniciar Sistema", ( evt ) -> {
 			/* Ação do botão */
@@ -74,14 +91,14 @@ public class PainelGerenteView extends JFrame {
 		JButton finalizarSistemaBtn = new ActionButton( "Finalizar Sistema", ( evt ) -> gerente.finalizarSistema() );
 		
 		/* Botão gerenciar produtos */
-		JButton cadastrarProdutoBtn = new ActionButton( "Gerenciar Produtos", ( evt ) -> {
-			setState( Frame.ICONIFIED );
+		JButton cadastrarProdutoBtn = new ActionButton( "Cadastrar Produto", ( evt ) -> {
 			new CadastrarProdutoView( "Cadastrar Produto" );
 		} );
 		
 		/* Adicionar componentes ao painel raiz */
 		root.add( titulo1, "center, span, wrap" );
-		root.add( titulo2, "center, span, wrap, gapbottom 20" );
+		root.add( titulo2, "center, span, wrap" );
+		root.add( numProdutosLabel, "center, span, gapbottom 20, wrap" );
 		root.add( iniciarSistemaBtn, "grow" );
 		root.add( finalizarSistemaBtn, "grow, wrap" );
 		root.add( cadastrarProdutoBtn, "grow" );
