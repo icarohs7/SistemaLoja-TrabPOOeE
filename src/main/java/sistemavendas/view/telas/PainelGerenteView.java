@@ -44,7 +44,7 @@ public class PainelGerenteView extends JFrame {
 		/* Ajustar tamanho da janela aos componentes */
 		pack();
 		/* Definir a operação de fechamento da janela */
-		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		/* Ajustar tamanho */
 		setSize( 400, getHeight() );
 		/* Centralizar a janela */
@@ -88,11 +88,18 @@ public class PainelGerenteView extends JFrame {
 		} );
 		
 		/* Botão finalizar sistema */
-		JButton finalizarSistemaBtn = new ActionButton( "Finalizar Sistema", ( evt ) -> gerente.finalizarSistema() );
+		JButton finalizarSistemaBtn = new ActionButton( "Finalizar Sistema", ( evt ) -> {
+			gerente.finalizarSistema();
+		} );
 		
-		/* Botão gerenciar produtos */
+		/* Botão cadastrar produtos */
 		JButton cadastrarProdutoBtn = new ActionButton( "Cadastrar Produto", ( evt ) -> {
 			new CadastrarProdutoView( "Cadastrar Produto" );
+		} );
+		
+		/* Botão gerenciar estoque */
+		JButton gerenciarEstoqueBtn = new ActionButton( "Gerenciar Estoque", ( evt ) -> {
+			new PainelEstoqueView( "Estoque" );
 		} );
 		
 		/* Adicionar componentes ao painel raiz */
@@ -102,5 +109,6 @@ public class PainelGerenteView extends JFrame {
 		root.add( iniciarSistemaBtn, "grow" );
 		root.add( finalizarSistemaBtn, "grow, wrap" );
 		root.add( cadastrarProdutoBtn, "grow" );
+		root.add( gerenciarEstoqueBtn, "grow" );
 	}
 }

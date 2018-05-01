@@ -2,7 +2,6 @@ package sistemavendas.autenticacao;
 
 import java.util.ArrayList;
 
-import sistemavendas.Estoque;
 import sistemavendas.Venda;
 import sistemavendas.catalogo.Produto;
 import sistemavendas.exceptions.PagamentoDinheiroException;
@@ -126,11 +125,10 @@ public class Operador extends Usuario {
 	 * Registrar item.
 	 *
 	 * @param produto the produto
-	 * @param estoque the estoque
 	 */
-	public void registrarItem( Produto produto, Estoque estoque ) {
+	public void registrarItem( Produto produto ) {
 		if ( vendaEmAndamento == null ) {
-			registrarVenda( produto, 1, estoque );
+			registrarVenda( produto, 1 );
 		} else {
 			vendaEmAndamento.registrarItem( produto, 1 );
 		}
@@ -141,10 +139,9 @@ public class Operador extends Usuario {
 	 *
 	 * @param produto    the produto
 	 * @param quantidade the quantidade
-	 * @param estoque    the estoque
 	 */
-	public void registrarVenda( Produto produto, int quantidade, Estoque estoque ) {
-		vendaEmAndamento = new Venda( produto, quantidade, estoque );
+	public void registrarVenda( Produto produto, int quantidade ) {
+		vendaEmAndamento = new Venda( produto, quantidade );
 	}
 	
 	/**

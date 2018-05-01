@@ -29,7 +29,8 @@ public class PainelOperadorView extends JFrame {
 	/**
 	 * Instantiates a new App view operador.
 	 *
-	 * @param s s
+	 * @param s        s
+	 * @param operador operador
 	 */
 	public PainelOperadorView( String s, Operador operador ) {
 		super( s );

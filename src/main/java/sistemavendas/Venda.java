@@ -30,22 +30,16 @@ public class Venda {
 	private double valorTotal;
 	
 	/**
-	 * Estoque.
-	 */
-	private Estoque estoque;
-	
-	/**
 	 * Instantiates a new Venda.
 	 *
 	 * @param produtoInicial O primeiro produto adicionado à venda
 	 * @param quantidade     the quantidade
-	 * @param estoque        estoque
 	 *
 	 * @throws EstoqueInsuficienteException  estoque insuficiente exception
 	 * @throws ProdutoNaoCadastradoException produto nao cadastrado exception
 	 * @throws OperacaoInvalidaException     operacao invalida exception
 	 */
-	public Venda( Produto produtoInicial, int quantidade, Estoque estoque )
+	public Venda( Produto produtoInicial, int quantidade )
 			throws EstoqueInsuficienteException, ProdutoNaoCadastradoException, OperacaoInvalidaException {
 		/* Abre uma nova venda ao escanear o primeiro produto */
 		fechada = false;
@@ -78,12 +72,12 @@ public class Venda {
 		}
 		/* Lançar uma exceção caso o usuário tente adicionar uma quantidade de produtos maior que a presente
 		 * no estoque */
-		if ( estoque.getProdutos()
+		if ( Loja.getInstance().getEstoque().getProdutos()
 				     .get( produto ) < quantidade ) {
 			throw new EstoqueInsuficienteException( "Não há quantidade suficiente do produto em estoque" );
 		}
 		/* Lançar uma exceção caso o usuário tente adicionar à venda um produto não cadastrado */
-		if ( !estoque.getProdutos()
+		if ( Loja.getInstance().getEstoque().getProdutos()
 				.containsKey( produto ) ) {
 			throw new ProdutoNaoCadastradoException( "O produto não está cadastrado no sistema" );
 		}
@@ -121,7 +115,9 @@ public class Venda {
 	private void fecharVenda() {
 		fechada = true;
 		/* Ao fim da venda, reduzir o estoque */
-		produtos.forEach( ( produto, quantidade ) -> estoque.reduzirEstoque( produto, quantidade ) );
+		produtos.forEach( ( produto, quantidade ) -> {
+			Loja.getInstance().getEstoque().reduzirEstoque( produto, quantidade );
+		} );
 		/* Arquivar a venda atual */
 		VendasCompletadas.adicionarVenda( this );
 	}

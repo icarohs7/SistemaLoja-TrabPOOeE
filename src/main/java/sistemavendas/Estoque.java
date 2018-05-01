@@ -58,6 +58,7 @@ public class Estoque {
 	 * @return the produtos
 	 */
 	public HashMap<Produto, Integer> getProdutos() {
+		sincronizarEstoque();
 		return produtos;
 	}
 	

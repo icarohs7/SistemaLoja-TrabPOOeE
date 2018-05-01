@@ -87,13 +87,25 @@ public class CadastrarProdutoView extends JFrame {
 		/* Botão finalizar */
 		JButton finalizarBtn = new ActionButton( "Finalizar", ( evt ) -> dispose() );
 		
+		/* Botão lista de produtos */
+		JButton listaProdutosBtn = new ActionButton( "Lista de Produtos", ( evt ) -> {
+			if ( CatalogoProdutos.getInstance().getProdutos().size() < 1 ) {
+				ViewUtil.showMessage( "Não há produtos cadastrados!" );
+			} else {
+				new PainelProdutoView( "Lista de produtos" );
+			}
+		} );
+		
 		/* Adicionar elementos ao painel */
 		root.add( titulo, "center, span, gapbottom 20, wrap" );
 		root.add( descLabel );
-		root.add( descField, "grow, wrap" );
+		root.add( descField, "grow,span, wrap" );
 		root.add( precolabel );
-		root.add( precoField, "grow, wrap" );
-		root.add( adicionarBtn, "grow, span" );
+		root.add( precoField, "grow,span, wrap" );
+		root.add( cancelarBtn, "grow" );
+		root.add( adicionarBtn, "grow" );
+		root.add( finalizarBtn, "grow,wrap" );
+		root.add( listaProdutosBtn, "grow, span" );
 	}
 	
 	/**
@@ -113,5 +125,6 @@ public class CadastrarProdutoView extends JFrame {
 		ViewUtil.showMessage( "Produto cadastrado com sucesso!" );
 		descField.setText( "" );
 		precoField.setText( "" );
+		descField.grabFocus();
 	}
 }
