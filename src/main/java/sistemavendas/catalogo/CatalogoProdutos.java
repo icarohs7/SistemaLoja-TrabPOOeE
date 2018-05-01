@@ -1,7 +1,6 @@
 package sistemavendas.catalogo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import sistemavendas.exceptions.ProdutoJaCadastradoException;
 
@@ -60,7 +59,5 @@ public class CatalogoProdutos {
 		}
 		
 		produtos.add( produto );
-		/* Ordenar lista em ordem alfabética por descrição */
-		produtos.sort( Comparator.comparing( Produto::getDescricao ) );
 	}
 }

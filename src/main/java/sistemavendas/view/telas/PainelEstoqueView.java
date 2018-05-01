@@ -3,12 +3,14 @@ package sistemavendas.view.telas;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
 import sistemavendas.Loja;
+import sistemavendas.view.util.ActionButton;
 import sistemavendas.view.util.FontLabel;
 import sistemavendas.view.util.ViewUtil;
 
@@ -61,8 +63,15 @@ public class PainelEstoqueView extends JFrame {
 		/* Gerar a lista */
 		JList listaProdutos = new JList( listModel );
 		
+		/* Botão editar estoque */
+		JButton editarEstoqueBtn = new ActionButton( "Editar Estoque", ( evt ) -> {
+			dispose();
+			new AlterarEstoqueView( "Editar estoque" );
+		} );
+		
 		/* Adicionar elementos ao painel */
 		root.add( titulo, "center,span,gapbottom 20,wrap" );
-		root.add( listaProdutos, "span,grow" );
+		root.add( listaProdutos, "span,grow,wrap" );
+		root.add( editarEstoqueBtn, "span, grow" );
 	}
 }
