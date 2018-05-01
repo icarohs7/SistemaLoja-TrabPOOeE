@@ -43,10 +43,18 @@ public class Operador extends Usuario {
 	}
 	
 	/**
+	 * Retorna o número de operadores cadastrados
+	 *
+	 * @return the num cadastrados
+	 */
+	public static int getNumCadastrados() {
+		return usuariosCadastrados.size();
+	}
+	
+	/**
 	 * Venda em andamento.
 	 */
 	private Venda vendaEmAndamento;
-	
 	
 	/**
 	 * Fazer login
@@ -82,6 +90,15 @@ public class Operador extends Usuario {
 		super( id, senha );
 		this.id = id;
 		this.senha = senha;
+	}
+	
+	/**
+	 * Gets venda em andamento.
+	 *
+	 * @return the venda em andamento
+	 */
+	public Venda getVendaEmAndamento() {
+		return vendaEmAndamento;
 	}
 	
 	/**

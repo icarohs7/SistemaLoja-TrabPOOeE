@@ -1,23 +1,29 @@
-package sistemavendas.view;
+package sistemavendas.view.telas;
 
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import sistemavendas.autenticacao.Gerente;
+import sistemavendas.autenticacao.Operador;
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
+import sistemavendas.view.util.ActionButton;
+import sistemavendas.view.util.AlertLabel;
+import sistemavendas.view.util.EnterKeyListenerField;
+import sistemavendas.view.util.EnterKeyListenerPassField;
+import sistemavendas.view.util.EnterListener;
+import sistemavendas.view.util.FontLabel;
+import sistemavendas.view.util.ViewUtil;
 
 /**
  * The type Login view.
  */
-public class LoginViewGerente extends JFrame {
+public class LoginOperadorView extends JFrame {
 	/**
 	 * Root.
 	 */
@@ -37,7 +43,7 @@ public class LoginViewGerente extends JFrame {
 	 *
 	 * @param s s
 	 */
-	public LoginViewGerente( String s ) {
+	public LoginOperadorView( String s ) {
 		super( s );
 		/* Procedimento de definição de componentes */
 		criarComponentes();
@@ -47,11 +53,11 @@ public class LoginViewGerente extends JFrame {
 		pack();
 		/* Definir a operação de fechamento da janela */
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-		/* Ajustar tamanho */
+		/* Ajustar tamanho da janela */
 		setSize( 400, getHeight() );
 		/* Centralizar a janela */
 		setLocationRelativeTo( null );
-		/* Tornar visível */
+		/* Tornar visivel */
 		setVisible( true );
 	}
 	
@@ -62,45 +68,39 @@ public class LoginViewGerente extends JFrame {
 		/* Instanciar painel raiz */
 		root = new JPanel( new MigLayout( "fillx" ) );
 		
-		/* Listener utilizado para reconhecer o pressionar da tecla enter */
-		EnterListener enterListener = new EnterListener( this::realizarLogin );
-		
 		/* Criar label título */
-		JLabel titulo = new JLabel( "Informe um login de gerente" );
-		/* Definir fonte do título */
-		titulo.setFont( ViewUtils.FONT_H1 );
+		JLabel titulo = new FontLabel( "Informe um login de operador", ViewUtil.FONT_H1 );
+		
+		/* Criar label para avisar sem operador cadastrados */
+		JLabel semUsuariosLabel = new AlertLabel( "Não há nenhum operador cadastrado, registre-se antes!" );
 		
 		/* Label para login */
 		JLabel loginLabel = new JLabel( "Login" );
 		/* Campo de login */
-		loginField = new JTextField();
-		/* Adicionar o comportamento ao pressionar a tecla enter */
-		loginField.addKeyListener( enterListener );
+		loginField = new EnterKeyListenerField( new EnterListener( this::realizarLogin ) );
 		
 		/* Label para senha */
 		JLabel senhaLabel = new JLabel( "Senha" );
 		/* Campo de senha */
-		senhaField = new JPasswordField();
-		/* Adicionar o comportamento ao pressionar a tecla enter */
-		senhaField.addKeyListener( enterListener );
+		senhaField = new EnterKeyListenerPassField( new EnterListener( this::realizarLogin ) );
 		
 		/* Botão de registrar */
-		JButton registrarButton = new JButton( "Registrar" );
-		/* Adicionar ação ao clique do botão */
-		registrarButton.addActionListener(
-				( evt ) -> {
-					dispose();
-					new CadastroViewGerente( "Sistema de Vendas - Cadastrar Gerente" );
-				} );
+		JButton registrarButton = new ActionButton( "Registrar", ( evt ) -> {
+			/* Ação do botão */
+			dispose();
+			new CadastroOperadorView( "Sistema de Vendas - Cadastrar Operador" );
+		} );
 		
 		/* Botão de entrar */
-		JButton entrarButton = new JButton( "Entrar" );
-		/* Adicionar ação ao clique do botão */
-		entrarButton.addActionListener(
-				( evt ) -> realizarLogin() );
+		JButton entrarButton = new ActionButton( "Entrar", ( evt ) -> realizarLogin() );
 		
 		/* Adicionar componentes à raiz */
-		root.add( titulo, "span, center, wrap, gapbottom 20" );
+		if ( Operador.getNumCadastrados() < 1 ) {
+			root.add( titulo, "center, span, wrap" );
+			root.add( semUsuariosLabel, "center, span, wrap, gapbottom 20" );
+		} else {
+			root.add( titulo, "center, span, wrap, gapbottom 20" );
+		}
 		root.add( loginLabel );
 		root.add( loginField, "grow, wrap" );
 		root.add( senhaLabel );
@@ -119,15 +119,17 @@ public class LoginViewGerente extends JFrame {
 		String senha = new String( senhaField.getPassword() );
 		/* Autenticar usuário */
 		try {
-			Gerente gerente = new Gerente( login, senha );
+			Operador operador = new Operador( login, senha );
 			/* Entrar no sistema */
-			JOptionPane.showMessageDialog( null, "Logado com sucesso!" );
+			ViewUtil.showMessage( "Logado com sucesso!" );
+			/* Fechar a janela */
 			dispose();
-			new AppViewGerente( "Sistema de Vendas", gerente );
+			/* Criar a tela da aplicação do operador */
+			new PainelOperadorView( "Sistema de Vendas - Tela do Operador", operador );
 		} catch ( SenhaIncorretaException e ) {
-			JOptionPane.showMessageDialog( null, "A senha está incorreta" );
+			ViewUtil.showMessage( "A senha está incorreta" );
 		} catch ( UsuarioNaoExisteException e ) {
-			JOptionPane.showMessageDialog( null, "O usuário informado não existe" );
+			ViewUtil.showMessage( "O usuário informado não existe" );
 		}
 	}
 }

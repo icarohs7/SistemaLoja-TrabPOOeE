@@ -1,4 +1,4 @@
-package sistemavendas.view;
+package sistemavendas.view.util;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 /**
  * Listener utilizado para realizar uma ação ao pressionar da tecla enter
  */
-class EnterListener implements KeyListener {
+public class EnterListener implements KeyListener {
 	/**
 	 * Acao que ocorrerá ao pressionar ta tecla enter.
 	 */

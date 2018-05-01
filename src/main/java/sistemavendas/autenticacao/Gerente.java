@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
-import sistemavendas.view.LoginViewOperador;
+import sistemavendas.view.telas.LoginOperadorView;
 
 /**
  * The type Gerente
@@ -101,7 +101,7 @@ public class Gerente extends Usuario {
 	 * Iniciar sistema.
 	 */
 	public void iniciarSistema() {
-		new LoginViewOperador( "Sistema de Vendas" );
+		new LoginOperadorView( "Sistema de Vendas" );
 	}
 	
 	/**

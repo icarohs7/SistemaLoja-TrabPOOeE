@@ -1,11 +1,12 @@
 package sistemavendas;
 
-import com.jtattoo.plaf.graphite.GraphiteLookAndFeel;
+import com.jtattoo.plaf.mcwin.McWinLookAndFeel;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import sistemavendas.view.LoginViewGerente;
+import sistemavendas.autenticacao.Operador;
+import sistemavendas.view.telas.LoginGerenteView;
 
 /**
  * The type Aplicacao.
@@ -19,11 +20,14 @@ public class Aplicacao {
 	public static void main( String[] args ) {
 		/* Definir tema da aplicação */
 		try {
-			UIManager.setLookAndFeel( new GraphiteLookAndFeel() );
+			McWinLookAndFeel.setTheme( "Modern" );
+			UIManager.setLookAndFeel( new McWinLookAndFeel() );
 		} catch ( UnsupportedLookAndFeelException ignored ) {
 		}
 		/* Iniciar aplicação */
-		new LoginViewGerente( "Sistema de Vendas" );
-		//		new LoginViewOperador( "Sistema de Vendas" );
+		new LoginGerenteView( "Sistema de Vendas" );
+		Operador.cadastrarUsuario( "icarohs7", "123456" );
+		//		new PainelOperadorView(
+		// "Sistema de Vendas - Painel do Operador", new Operador( "icarohs7", "123456") );
 	}
 }

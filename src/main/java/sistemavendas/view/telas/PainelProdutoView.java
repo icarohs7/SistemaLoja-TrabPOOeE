@@ -1,25 +1,31 @@
-package sistemavendas.view;
+package sistemavendas.view.telas;
 
 import net.miginfocom.swing.MigLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sistemavendas.view.util.ActionButton;
+import sistemavendas.view.util.FontLabel;
+import sistemavendas.view.util.ViewUtil;
+
 /**
- * Instanciar AppViewOperador
+ * Tela PainelProdutoView
  */
-public class AppViewOperador extends JFrame {
+public class PainelProdutoView extends JFrame {
 	/**
 	 * Painel raiz da aplicação
 	 */
 	private JPanel root;
 	
 	/**
-	 * Instantiates a new App view operador.
+	 * Criar a tela
 	 *
-	 * @param s s
+	 * @param s Titulo
 	 */
-	public AppViewOperador( String s ) {
+	public PainelProdutoView( String s ) {
 		super( s );
 		/* Procedimento de definição de componentes */
 		criarComponentes();
@@ -43,5 +49,17 @@ public class AppViewOperador extends JFrame {
 	private void criarComponentes() {
 		/* Instanciar painel raiz */
 		root = new JPanel( new MigLayout( "fillx" ) );
+		
+		/* Título */
+		JLabel titulo = new FontLabel( "Catálogo de Produtos", ViewUtil.FONT_H1 );
+		
+		/* Botão cadastrar produto */
+		JButton cadastrarBtn = new ActionButton( "Cadastrar",
+		                                         ( evt ) -> new CadastrarProdutoView( "Cadastrar Produto" )
+		);
+		
+		/* Adicionar elementos ao painel */
+		root.add( titulo, "center, span, gapbottom 20, wrap" );
+		root.add( cadastrarBtn, "grow" );
 	}
 }

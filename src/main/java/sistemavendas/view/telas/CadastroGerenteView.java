@@ -1,32 +1,49 @@
-package sistemavendas.view;
+package sistemavendas.view.telas;
 
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import sistemavendas.autenticacao.Gerente;
+import sistemavendas.view.util.ActionButton;
+import sistemavendas.view.util.EnterKeyListenerField;
+import sistemavendas.view.util.EnterKeyListenerPassField;
+import sistemavendas.view.util.EnterListener;
+import sistemavendas.view.util.FontLabel;
+import sistemavendas.view.util.ViewUtil;
 
 /**
- * Instanciar CadastroViewGerente
+ * Instanciar CadastroGerenteView
  */
-public class CadastroViewGerente extends JFrame {
+public class CadastroGerenteView extends JFrame {
 	/**
 	 * Root.
 	 */
 	private JPanel root;
+	/**
+	 * Login field.
+	 */
+	private JTextField loginField;
+	/**
+	 * Senha field.
+	 */
+	private JPasswordField senhaField;
+	/**
+	 * Senha field 2.
+	 */
+	private JPasswordField senhaField2;
 	
 	/**
 	 * Instantiates a new Cadastro view gerente.
 	 *
 	 * @param s s
 	 */
-	public CadastroViewGerente( String s ) {
+	public CadastroGerenteView( String s ) {
 		super( s );
 		/* Procedimento de definição de componentes */
 		criarComponentes();
@@ -52,19 +69,17 @@ public class CadastroViewGerente extends JFrame {
 		root = new JPanel( new MigLayout( "fillx" ) );
 		
 		/* Criar label título */
-		JLabel titulo = new JLabel( "Cadastrar Gerente" );
-		/* Definir fonte do título */
-		titulo.setFont( ViewUtils.FONT_H1 );
+		JLabel titulo = new FontLabel( "Cadastrar Gerente", ViewUtil.FONT_H1 );
 		
 		/* Label login */
 		JLabel loginLabel = new JLabel( "login" );
-		/* Campo de login */
-		JTextField loginField = new JTextField();
+		/* Campo de login com ação para o botão enter */
+		loginField = new EnterKeyListenerField( new EnterListener( this::cadastrar ) );
 		
 		/* Label senha */
 		JLabel senhaLabel = new JLabel( "senha" );
-		/* Campo senha */
-		JPasswordField senhaField = new JPasswordField();
+		/* Campo senha com ação para o botão enter */
+		senhaField = new EnterKeyListenerPassField( new EnterListener( this::cadastrar ) );
 		
 		/* Segunda label senha */
 		JLabel senhaLabel2 = new JLabel( "senha" );
@@ -72,34 +87,7 @@ public class CadastroViewGerente extends JFrame {
 		JPasswordField senhaField2 = new JPasswordField();
 		
 		/* Botão cadastrar */
-		JButton cadastrarBtn = new JButton( "Cadastrar" );
-		/* Ação do botão cadastrar */
-		cadastrarBtn.addActionListener( ( evt ) -> {
-			String login = loginField.getText();
-			String senha = new String( senhaField.getPassword() );
-			String senha2 = new String( senhaField2.getPassword() );
-			
-			if ( senha.equals( senha2 ) ) {
-				if ( Gerente.cadastrarUsuario( login, senha ) ) {
-					JOptionPane.showMessageDialog( null, "Gerente cadastrado com sucesso!" );
-					dispose();
-					new LoginViewGerente( "Sistema de vendas" );
-				} else {
-					JOptionPane.showMessageDialog( null,
-					                               "Não foi possível cadastrar o gerente, usuário já existe!"
-					);
-				}
-			} else {
-				JOptionPane.showMessageDialog( null, "As senhas devem der iguais!" );
-			}
-		} );
-		
-		/* Listener para pressionar da tecla enter */
-		EnterListener enterListener = new EnterListener( cadastrarBtn::doClick );
-		/* Adicionar listener aos campos de texto */
-		loginField.addKeyListener( enterListener );
-		senhaField.addKeyListener( enterListener );
-		senhaField2.addKeyListener( enterListener );
+		JButton cadastrarBtn = new ActionButton( "Cadastrar", ( evt ) -> cadastrar() );
 		
 		/* Adicionar componentes ao painel */
 		root.add( titulo, "center, span, wrap" );
@@ -110,5 +98,26 @@ public class CadastroViewGerente extends JFrame {
 		root.add( senhaLabel2 );
 		root.add( senhaField2, "grow, wrap" );
 		root.add( cadastrarBtn, "span, wrap, right, grow" );
+	}
+	
+	/**
+	 * Cadastrar.
+	 */
+	private void cadastrar() {
+		String login = loginField.getText();
+		String senha = new String( senhaField.getPassword() );
+		String senha2 = new String( senhaField2.getPassword() );
+		
+		if ( senha.equals( senha2 ) ) {
+			if ( Gerente.cadastrarUsuario( login, senha ) ) {
+				ViewUtil.showMessage( "Gerente cadastrado com sucesso!" );
+				dispose();
+				new LoginGerenteView( "Sistema de vendas" );
+			} else {
+				ViewUtil.showMessage( "Não foi possível cadastrar o gerente, usuário já existe!" );
+			}
+		} else {
+			ViewUtil.showMessage( "As senhas devem der iguais!" );
+		}
 	}
 }

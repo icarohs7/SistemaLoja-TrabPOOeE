@@ -1,6 +1,8 @@
-package sistemavendas.view;
+package sistemavendas.view.telas;
 
 import net.miginfocom.swing.MigLayout;
+
+import java.awt.Frame;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,11 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import sistemavendas.autenticacao.Gerente;
+import sistemavendas.view.util.ActionButton;
+import sistemavendas.view.util.FontLabel;
+import sistemavendas.view.util.ViewUtil;
 
 /**
  * The type App view gerente.
  */
-public class AppViewGerente extends JFrame {
+public class PainelGerenteView extends JFrame {
 	/**
 	 * Root.
 	 */
@@ -28,7 +33,7 @@ public class AppViewGerente extends JFrame {
 	 * @param s       s
 	 * @param gerente gerente
 	 */
-	public AppViewGerente( String s, Gerente gerente ) {
+	public PainelGerenteView( String s, Gerente gerente ) {
 		super( s );
 		this.gerente = gerente;
 		/* Procedimento de definição de componentes */
@@ -55,30 +60,30 @@ public class AppViewGerente extends JFrame {
 		root = new JPanel( new MigLayout( "fillx" ) );
 		
 		/* Criar as labels de título */
-		JLabel titulo1 = new JLabel( "Bem Vindo(a)!" );
-		JLabel titulo2 = new JLabel( "Selecione a operação desejada" );
-		/* Definir fonte do título */
-		titulo1.setFont( ViewUtils.FONT_H1 );
-		titulo2.setFont( ViewUtils.FONT_H1 );
+		JLabel titulo1 = new FontLabel( "Bem Vindo(a)!", ViewUtil.FONT_H1 );
+		JLabel titulo2 = new FontLabel( "Selecione a operação desejada", ViewUtil.FONT_H1 );
 		
 		/* Botão iniciar sistema */
-		JButton iniciarSistemaBtn = new JButton( "Iniciar Sistema" );
-		/* Ação ao clicar no botão iniciar sistema */
-		iniciarSistemaBtn.addActionListener( ( evt ) -> {
-			dispose();
+		JButton iniciarSistemaBtn = new ActionButton( "Iniciar Sistema", ( evt ) -> {
+			/* Ação do botão */
+			setState( Frame.ICONIFIED );
 			gerente.iniciarSistema();
 		} );
 		
 		/* Botão finalizar sistema */
-		JButton finalizarSistemaBtn = new JButton( "Finalizar Sistema" );
-		/* Ação ao clicar no botão finalizar sistema */
-		finalizarSistemaBtn.addActionListener(
-				( evt ) -> gerente.finalizarSistema() );
+		JButton finalizarSistemaBtn = new ActionButton( "Finalizar Sistema", ( evt ) -> gerente.finalizarSistema() );
+		
+		/* Botão gerenciar produtos */
+		JButton cadastrarProdutoBtn = new ActionButton( "Gerenciar Produtos", ( evt ) -> {
+			setState( Frame.ICONIFIED );
+			new CadastrarProdutoView( "Cadastrar Produto" );
+		} );
 		
 		/* Adicionar componentes ao painel raiz */
 		root.add( titulo1, "center, span, wrap" );
 		root.add( titulo2, "center, span, wrap, gapbottom 20" );
 		root.add( iniciarSistemaBtn, "grow" );
-		root.add( finalizarSistemaBtn, "grow" );
+		root.add( finalizarSistemaBtn, "grow, wrap" );
+		root.add( cadastrarProdutoBtn, "grow" );
 	}
 }
