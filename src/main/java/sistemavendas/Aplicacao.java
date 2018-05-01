@@ -1,6 +1,6 @@
 package sistemavendas;
 
-import com.jtattoo.plaf.hifi.HiFiLookAndFeel;
+import com.jtattoo.plaf.mcwin.McWinLookAndFeel;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -19,8 +19,10 @@ public class Aplicacao {
 	public static void main( String[] args ) {
 		/* Definir tema da aplicação */
 		try {
-			UIManager.setLookAndFeel( new HiFiLookAndFeel() );
-		} catch ( UnsupportedLookAndFeelException ignored ) {
+			McWinLookAndFeel.setTheme( "Modern" );
+			UIManager.setLookAndFeel( new McWinLookAndFeel() );
+		} catch ( UnsupportedLookAndFeelException e ) {
+			e.printStackTrace();
 		}
 		/* Iniciar aplicação */
 		new LoginGerenteView( "Sistema de Vendas" );
