@@ -179,8 +179,10 @@ public class Operador extends Usuario {
 	 * @return the boolean
 	 */
 	public boolean receberPagamentoCheque( String identidade ) {
-		if ( identidade.length() == 13 && identidade.charAt( 2 ) == '-' && identidade.charAt( 5 ) == '.' && identidade
-				                                                                                                    .charAt( 9 ) == '.' ) {
+		if ( identidade.length() == 13
+		     && identidade.charAt( 2 ) == '-'
+		     && identidade.charAt( 5 ) == '.'
+		     && identidade.charAt( 9 ) == '.' ) {
 			return true;
 		} else {
 			throw new PagamentoChequeException( "Numero de identidade invalido" );

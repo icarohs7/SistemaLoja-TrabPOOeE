@@ -99,7 +99,11 @@ public class PainelGerenteView extends JFrame {
 		
 		/* Botão gerenciar estoque */
 		JButton gerenciarEstoqueBtn = new ActionButton( "Gerenciar Estoque", ( evt ) -> {
-			new PainelEstoqueView( "Estoque" );
+			if ( CatalogoProdutos.getInstance().getProdutos().size() < 1 ) {
+				ViewUtil.showMessage( "Não há produtos cadastrados, cadastre primeiro" );
+			} else {
+				new PainelEstoqueView( "Estoque" );
+			}
 		} );
 		
 		/* Adicionar componentes ao painel raiz */
