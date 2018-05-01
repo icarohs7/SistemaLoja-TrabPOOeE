@@ -7,6 +7,7 @@ import sistemavendas.catalogo.Produto;
 import sistemavendas.exceptions.PagamentoDinheiroException;
 import sistemavendas.exceptions.SenhaIncorretaException;
 import sistemavendas.exceptions.UsuarioNaoExisteException;
+import sistemavendas.exceptions.PagamentoChequeException;
 
 /**
  * The type Operador.
@@ -178,7 +179,11 @@ public class Operador extends Usuario {
 	 * @return the boolean
 	 */
 	public boolean receberPagamentoCheque( String identidade ) {
-		return true;
+            if(identidade.length() == 13 && identidade.charAt(2) == '-' && identidade.charAt(5) == '.' && identidade.charAt(9) == '.')
+                return true;
+            else{
+                throw new PagamentoChequeException("Numero de identidade invalido");
+            }
 	}
 	
 }
