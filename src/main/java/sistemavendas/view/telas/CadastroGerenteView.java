@@ -52,7 +52,7 @@ public class CadastroGerenteView extends JFrame {
 		/* Ajustar tamanho da janela aos componentes */
 		pack();
 		/* Definir a operação de fechamento da janela */
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		/* Ajustar tamanho */
 		setSize( 400, getHeight() );
 		/* Centralizar a janela */

@@ -49,7 +49,7 @@ public class CadastrarProdutoView extends JFrame {
 		/* Ajustar tamanho da janela aos componentes */
 		pack();
 		/* Definir a operação de fechamento da janela */
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		/* Ajustar tamanho da janela */
 		setSize( 400, getHeight() );
 		/* Centralizar a janela */
