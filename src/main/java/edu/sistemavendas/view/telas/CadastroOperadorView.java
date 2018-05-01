@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import edu.sistemavendas.autenticacao.Operador;
+import edu.sistemavendas.exceptions.StringVaziaException;
 import edu.sistemavendas.view.util.ActionButton;
 import edu.sistemavendas.view.util.EnterKeyListenerField;
 import edu.sistemavendas.view.util.EnterKeyListenerPassField;
@@ -39,12 +40,19 @@ public class CadastroOperadorView extends JFrame {
 	private JPasswordField senhaField2;
 	
 	/**
+	 * Parent.
+	 */
+	private JFrame parent;
+	
+	/**
 	 * Instantiates a new Cadastro view operador.
 	 *
-	 * @param s s
+	 * @param s      s
+	 * @param parent parent
 	 */
-	public CadastroOperadorView( String s ) {
+	public CadastroOperadorView( String s, JFrame parent ) {
 		super( s );
+		this.parent = parent;
 		/* Procedimento de definição de componentes */
 		criarComponentes();
 		/* Definir painel contendo os componentes */
@@ -104,20 +112,32 @@ public class CadastroOperadorView extends JFrame {
 	 * Cadastrar.
 	 */
 	private void cadastrar() {
-		String login = loginField.getText();
-		String senha = new String( senhaField.getPassword() );
-		String senha2 = new String( senhaField2.getPassword() );
-		
-		if ( senha.equals( senha2 ) ) {
-			if ( Operador.cadastrarUsuario( login, senha ) ) {
-				ViewUtil.showMessage( "Operador cadastrado com sucesso!" );
-				dispose();
-				new LoginOperadorView( "Sistema de vendas" );
+		try {
+			String login = loginField.getText();
+			String senha = new String( senhaField.getPassword() );
+			String senha2 = new String( senhaField2.getPassword() );
+			
+			if ( senha.equals( senha2 ) ) {
+				if ( Operador.cadastrarUsuario( login, senha ) ) {
+					ViewUtil.showMessage( "Operador cadastrado com sucesso!" );
+					dispose();
+				} else {
+					ViewUtil.showMessage( "Nao foi possivel cadastrar o operador, usuario ja existe!" );
+				}
 			} else {
-				ViewUtil.showMessage( "Nao foi possivel cadastrar o operador, usuario ja existe!" );
+				ViewUtil.showMessage( "As senhas devem der iguais!" );
 			}
-		} else {
-			ViewUtil.showMessage( "As senhas devem der iguais!" );
+		} catch ( StringVaziaException e ) {
+			ViewUtil.showMessage( e.getMessage() );
 		}
+	}
+	
+	/**
+	 * Dispose.
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		parent.setVisible( true );
 	}
 }

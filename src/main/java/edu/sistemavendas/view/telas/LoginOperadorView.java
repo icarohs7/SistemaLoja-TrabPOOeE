@@ -2,6 +2,8 @@ package edu.sistemavendas.view.telas;
 
 import net.miginfocom.swing.MigLayout;
 
+import java.awt.Frame;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -87,8 +89,8 @@ public class LoginOperadorView extends JFrame {
 		/* Botão de registrar */
 		JButton registrarButton = new ActionButton( "Registrar", ( evt ) -> {
 			/* Ação do botão */
-			dispose();
-			new CadastroOperadorView( "Sistema de Vendas - Cadastrar Operador" );
+			setVisible( false );
+			new CadastroOperadorView( "Sistema de Vendas - Cadastrar Operador", this );
 		} );
 		
 		/* Botão de entrar */
@@ -131,5 +133,14 @@ public class LoginOperadorView extends JFrame {
 		} catch ( UsuarioNaoExisteException e ) {
 			ViewUtil.showMessage( "O usuario informado nao existe" );
 		}
+	}
+	
+	/**
+	 * Dispose.
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		PainelGerenteView.getInstance().setState( Frame.NORMAL );
 	}
 }

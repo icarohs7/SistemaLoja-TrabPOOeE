@@ -84,8 +84,8 @@ public class LoginGerenteView extends JFrame {
 		/* Botão de registrar */
 		JButton registrarButton = new ActionButton( "Registrar", ( evt ) -> {
 			/* Ação do botão */
-			dispose();
-			new CadastroGerenteView( "Sistema de Vendas - Cadastrar Gerente" );
+			setVisible( false );
+			new CadastroGerenteView( "Sistema de Vendas - Cadastrar Gerente", this );
 		} );
 		
 		/* Botão de entrar */

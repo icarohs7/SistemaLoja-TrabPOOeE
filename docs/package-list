@@ -1,6 +1,6 @@
-sistemavendas
-sistemavendas.autenticacao
-sistemavendas.catalogo
-sistemavendas.exceptions
-sistemavendas.view.telas
-sistemavendas.view.util
+edu.sistemavendas
+edu.sistemavendas.autenticacao
+edu.sistemavendas.catalogo
+edu.sistemavendas.exceptions
+edu.sistemavendas.view.telas
+edu.sistemavendas.view.util

@@ -7,6 +7,7 @@ import edu.sistemavendas.catalogo.Produto;
 import edu.sistemavendas.exceptions.PagamentoChequeException;
 import edu.sistemavendas.exceptions.PagamentoDinheiroException;
 import edu.sistemavendas.exceptions.SenhaIncorretaException;
+import edu.sistemavendas.exceptions.StringVaziaException;
 import edu.sistemavendas.exceptions.UsuarioNaoExisteException;
 
 /**
@@ -31,6 +32,11 @@ public class Operador extends Usuario {
 	 * @return Se a operação foi bem sucedida ou não
 	 */
 	public static boolean cadastrarUsuario( String login, String senha ) {
+		if ( login.equals( "" ) ) {
+			throw new StringVaziaException( "O login do operador não pode ser vazio" );
+		} else if ( senha.equals( "" ) ) {
+			throw new StringVaziaException( "A senha do operador não pode ser vazia" );
+		}
 		/* Verificar se o usuário informado já está cadastrado */
 		for ( Usuario usuario : usuariosCadastrados ) {
 			if ( usuario.id.equals( login ) ) {

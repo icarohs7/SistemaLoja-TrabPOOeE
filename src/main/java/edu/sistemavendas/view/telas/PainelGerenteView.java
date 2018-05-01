@@ -20,6 +20,24 @@ import edu.sistemavendas.view.util.ViewUtil;
  */
 public class PainelGerenteView extends JFrame {
 	/**
+	 * The constant INSTANCE.
+	 */
+	private static PainelGerenteView INSTANCE;
+	
+	static {
+		INSTANCE = null;
+	}
+	
+	/**
+	 * Gets instance.
+	 *
+	 * @return the instance
+	 */
+	public static PainelGerenteView getInstance() {
+		return INSTANCE;
+	}
+	
+	/**
 	 * Root.
 	 */
 	private JPanel root;
@@ -51,6 +69,12 @@ public class PainelGerenteView extends JFrame {
 		setLocationRelativeTo( null );
 		/* Tornar visível */
 		setVisible( true );
+		if ( INSTANCE == null ) {
+			INSTANCE = this;
+		} else if ( INSTANCE != this ) {
+			INSTANCE.dispose();
+			INSTANCE = this;
+		}
 	}
 	
 	/**

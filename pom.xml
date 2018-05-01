@@ -72,7 +72,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>sistemavendas.Aplicacao</mainClass>
+							<mainClass>edu.sistemavendas.Aplicacao</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

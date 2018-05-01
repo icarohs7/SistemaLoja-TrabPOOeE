@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import edu.sistemavendas.autenticacao.Gerente;
+import edu.sistemavendas.exceptions.StringVaziaException;
 import edu.sistemavendas.view.util.ActionButton;
 import edu.sistemavendas.view.util.EnterKeyListenerField;
 import edu.sistemavendas.view.util.EnterKeyListenerPassField;
@@ -39,12 +40,19 @@ public class CadastroGerenteView extends JFrame {
 	private JPasswordField senhaField2;
 	
 	/**
+	 * Parent.
+	 */
+	private JFrame parent;
+	
+	/**
 	 * Instantiates a new Cadastro view gerente.
 	 *
-	 * @param s s
+	 * @param s      s
+	 * @param parent parent
 	 */
-	public CadastroGerenteView( String s ) {
+	public CadastroGerenteView( String s, JFrame parent ) {
 		super( s );
+		this.parent = parent;
 		/* Procedimento de definição de componentes */
 		criarComponentes();
 		/* Definir painel contendo os componentes */
@@ -84,7 +92,7 @@ public class CadastroGerenteView extends JFrame {
 		/* Segunda label senha */
 		JLabel senhaLabel2 = new JLabel( "senha" );
 		/* Segundo campo senha */
-		JPasswordField senhaField2 = new JPasswordField();
+		senhaField2 = new JPasswordField();
 		
 		/* Botão cadastrar */
 		JButton cadastrarBtn = new ActionButton( "Cadastrar", ( evt ) -> cadastrar() );
@@ -104,20 +112,32 @@ public class CadastroGerenteView extends JFrame {
 	 * Cadastrar.
 	 */
 	private void cadastrar() {
-		String login = loginField.getText();
-		String senha = new String( senhaField.getPassword() );
-		String senha2 = new String( senhaField2.getPassword() );
-		
-		if ( senha.equals( senha2 ) ) {
-			if ( Gerente.cadastrarUsuario( login, senha ) ) {
-				ViewUtil.showMessage( "Gerente cadastrado com sucesso!" );
-				dispose();
-				new LoginGerenteView( "Sistema de vendas" );
+		try {
+			String login = loginField.getText();
+			String senha = new String( senhaField.getPassword() );
+			String senha2 = new String( senhaField2.getPassword() );
+			
+			if ( senha.equals( senha2 ) ) {
+				if ( Gerente.cadastrarUsuario( login, senha ) ) {
+					ViewUtil.showMessage( "Gerente cadastrado com sucesso!" );
+					dispose();
+				} else {
+					ViewUtil.showMessage( "Não foi possível cadastrar o gerente, usuario ja existe!" );
+				}
 			} else {
-				ViewUtil.showMessage( "Não foi possível cadastrar o gerente, usuario ja existe!" );
+				ViewUtil.showMessage( "As senhas devem der iguais!" );
 			}
-		} else {
-			ViewUtil.showMessage( "As senhas devem der iguais!" );
+		} catch ( StringVaziaException e ) {
+			ViewUtil.showMessage( e.getMessage() );
 		}
+	}
+	
+	/**
+	 * Dispose.
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		parent.setVisible( true );
 	}
 }

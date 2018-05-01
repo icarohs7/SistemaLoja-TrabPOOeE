@@ -3,6 +3,7 @@ package edu.sistemavendas.autenticacao;
 import java.util.ArrayList;
 
 import edu.sistemavendas.exceptions.SenhaIncorretaException;
+import edu.sistemavendas.exceptions.StringVaziaException;
 import edu.sistemavendas.exceptions.UsuarioNaoExisteException;
 import edu.sistemavendas.view.telas.LoginOperadorView;
 
@@ -30,6 +31,11 @@ public class Gerente extends Usuario {
 	 * @return Se a operacao foi bem sucedida ou nao
 	 */
 	public static boolean cadastrarUsuario( String login, String senha ) {
+		if ( login.equals( "" ) ) {
+			throw new StringVaziaException( "O login do gerente não pode ser vazio" );
+		} else if ( senha.equals( "" ) ) {
+			throw new StringVaziaException( "A senha do gerente não pode ser vazia" );
+		}
 		/* Verificar se o usuário informado já está cadastrado */
 		for ( Usuario usuario : usuariosCadastrados ) {
 			if ( usuario.id.equals( login ) ) {
