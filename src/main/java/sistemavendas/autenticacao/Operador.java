@@ -93,6 +93,14 @@ public class Operador extends Usuario {
 	}
 	
 	/**
+	 * Fechar venda.
+	 */
+	public void fecharVenda() {
+		vendaEmAndamento.fecharVenda();
+		vendaEmAndamento = null;
+	}
+	
+	/**
 	 * Gets venda em andamento.
 	 *
 	 * @return the venda em andamento

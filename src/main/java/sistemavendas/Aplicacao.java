@@ -5,7 +5,6 @@ import com.jtattoo.plaf.mcwin.McWinLookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import sistemavendas.autenticacao.Operador;
 import sistemavendas.view.telas.LoginGerenteView;
 
 /**
@@ -26,8 +25,5 @@ public class Aplicacao {
 		}
 		/* Iniciar aplicação */
 		new LoginGerenteView( "Sistema de Vendas" );
-		Operador.cadastrarUsuario( "icarohs7", "123456" );
-		//		new PainelOperadorView(
-		// "Sistema de Vendas - Painel do Operador", new Operador( "icarohs7", "123456") );
 	}
 }

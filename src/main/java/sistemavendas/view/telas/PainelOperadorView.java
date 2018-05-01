@@ -4,11 +4,14 @@ import net.miginfocom.swing.MigLayout;
 
 import java.awt.Color;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import sistemavendas.autenticacao.Operador;
+import sistemavendas.catalogo.CatalogoProdutos;
+import sistemavendas.view.util.ActionButton;
 import sistemavendas.view.util.FontLabel;
 import sistemavendas.view.util.ViewUtil;
 
@@ -20,6 +23,11 @@ public class PainelOperadorView extends JFrame {
 	 * Painel raiz da aplicação
 	 */
 	private JPanel root;
+	
+	/**
+	 * Num itens thread.
+	 */
+	private Thread numItensThread;
 	
 	/**
 	 * Usuário atual
@@ -64,27 +72,93 @@ public class PainelOperadorView extends JFrame {
 		
 		/* Criar label com o número de itens na venda */
 		JLabel numItensLabel = new FontLabel( "", ViewUtil.FONT_H1 );
+		/* Label para preço total da venda */
+		JLabel precoTotalLabel = new FontLabel( "", ViewUtil.FONT_H1 );
 		/* Criar thread para verificar continuamente o número de itens da venda */
-		Thread numItensThread = new Thread( () -> {
-			if ( operador.getVendaEmAndamento() == null || operador.getVendaEmAndamento().getProdutos().size() < 1 ) {
-				numItensLabel.setText( "Sem itens na venda" );
-				numItensLabel.setForeground( Color.RED );
-			} else {
-				numItensLabel.setText( "Qtd. de Itens na venda: " + operador.getVendaEmAndamento()
-						.getProdutos()
-						.size() );
-				numItensLabel.setForeground( Color.BLACK );
-			}
-			try {
-				Thread.sleep( 1000 );
-			} catch ( InterruptedException ignored ) {
+		numItensThread = new Thread( () -> {
+			while ( !Thread.interrupted() ) {
+				if ( operador.getVendaEmAndamento() == null
+				     || operador.getVendaEmAndamento().getProdutos().size() < 1 ) {
+					numItensLabel.setText( "Sem itens na venda" );
+					numItensLabel.setForeground( Color.RED );
+					precoTotalLabel.setText( "Valor total da venda: R$0" );
+				} else {
+					numItensLabel.setText( "Qtd. de Itens na venda: " + operador.getVendaEmAndamento()
+							.getProdutos()
+							.size() );
+					numItensLabel.setForeground( Color.BLACK );
+					precoTotalLabel.setText( "Valor total da venda: R$" + operador.getVendaEmAndamento()
+							.getValorTotal() );
+				}
+				try {
+					Thread.sleep( 1000 );
+				} catch ( InterruptedException ignored ) {
+				}
 			}
 		} );
 		/* Iniciar a thread */
 		numItensThread.start();
 		
+		/* Botão ver itens venda */
+		JButton verItensBtn = new ActionButton( "Ver itens da venda", ( evt ) -> {
+			verItensVenda();
+		} );
+		
+		/* Botão adicionar item */
+		JButton adicionarItemBtn = new ActionButton( "Adicionar item à venda", ( evt ) -> {
+			adicionarItemVenda();
+		} );
+		
+		/* Botão finalizar venda */
+		JButton finalizarVendaBtn = new ActionButton( "Finalizar venda", ( evt ) -> {
+			finalizarVenda();
+		} );
+		
 		/* Adicionar itens ao painel */
 		root.add( titulo, "center, span, wrap" );
-		root.add( numItensLabel, "center, span, gapbottom 20, wrap" );
+		root.add( numItensLabel, "center, span, wrap" );
+		root.add( precoTotalLabel, "center,span,gapbottom 20,wrap" );
+		root.add( verItensBtn, "span,grow" );
+		root.add( adicionarItemBtn, "span,grow" );
+		root.add( finalizarVendaBtn, "span,grow" );
+	}
+	
+	/**
+	 * Ver itens da venda.
+	 */
+	public void verItensVenda() {
+		if ( operador.getVendaEmAndamento() == null || operador.getVendaEmAndamento().getProdutos().size() < 1 ) {
+			ViewUtil.showMessage( "Não há itens na venda" );
+		} else {
+			new ItensVendaView( "Produtos", operador.getVendaEmAndamento().getProdutos() );
+		}
+	}
+	
+	/**
+	 * Adicionar item à venda.
+	 */
+	public void adicionarItemVenda() {
+		if ( CatalogoProdutos.getInstance().getProdutos().size() < 1 ) {
+			ViewUtil.showMessage( "Não há produtos cadastrados, contate o administrador do sistema!" );
+		} else {
+			new AdicionarItemVendaView( "Adicionar Item", operador );
+		}
+	}
+	
+	/**
+	 * Finalizar venda.
+	 */
+	public void finalizarVenda() {
+		ViewUtil.showMessage( "VAI TOMAR NO CU! AINDA N TA PRONTO!!!" );
+		System.exit( 0 );
+	}
+	
+	/**
+	 * Dispose.
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		numItensThread.interrupt();
 	}
 }

@@ -53,7 +53,7 @@ public class AlterarEstoqueView extends JFrame {
 		pack();
 		/* Definir a operação de fechamento da janela */
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		/* Centralizar a janela */
+		/* Centralizar a janela em seu pai */
 		setLocationRelativeTo( null );
 		/* Tornar visível */
 		setVisible( true );
@@ -107,12 +107,16 @@ public class AlterarEstoqueView extends JFrame {
 	 * Incrementar estoque.
 	 */
 	private void incrementarEstoque() {
-		Loja.getInstance().getEstoque().incrementarEstoque(
-				CatalogoProdutos.getInstance().getProdutos().get( indiceCombo.getSelectedIndex() ),
-				Integer.valueOf( incrementoEstoqueField.getText() )
-		);
-		ViewUtil.showMessage( "Atualizado com sucesso!" );
-		indiceCombo.setSelectedIndex( 0 );
-		incrementoEstoqueField.setText( "" );
+		try {
+			Loja.getInstance().getEstoque().incrementarEstoque(
+					CatalogoProdutos.getInstance().getProdutos().get( indiceCombo.getSelectedIndex() ),
+					Integer.valueOf( incrementoEstoqueField.getText() )
+			);
+			ViewUtil.showMessage( "Atualizado com sucesso!" );
+			indiceCombo.setSelectedIndex( 0 );
+			incrementoEstoqueField.setText( "" );
+		} catch ( NumberFormatException e ) {
+			ViewUtil.showMessage( "Incremento inválido" );
+		}
 	}
 }

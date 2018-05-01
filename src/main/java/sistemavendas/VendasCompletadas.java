@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The type Vendas completadas.
  */
-class VendasCompletadas {
+abstract class VendasCompletadas {
 	/**
 	 * The constant vendas.
 	 */

@@ -72,13 +72,11 @@ public class Venda {
 		}
 		/* Lançar uma exceção caso o usuário tente adicionar uma quantidade de produtos maior que a presente
 		 * no estoque */
-		if ( Loja.getInstance().getEstoque().getProdutos()
-				     .get( produto ) < quantidade ) {
+		if ( Loja.getInstance().getEstoque().getProdutos().get( produto ) < quantidade ) {
 			throw new EstoqueInsuficienteException( "Não há quantidade suficiente do produto em estoque" );
 		}
 		/* Lançar uma exceção caso o usuário tente adicionar à venda um produto não cadastrado */
-		if ( Loja.getInstance().getEstoque().getProdutos()
-				.containsKey( produto ) ) {
+		if ( !Loja.getInstance().getEstoque().getProdutos().containsKey( produto ) ) {
 			throw new ProdutoNaoCadastradoException( "O produto não está cadastrado no sistema" );
 		}
 		/* Se o produto já estiver presente na venda, incrementar sua quantidade */
@@ -112,7 +110,7 @@ public class Venda {
 	/**
 	 * Fechar venda.
 	 */
-	private void fecharVenda() {
+	public void fecharVenda() {
 		fechada = true;
 		/* Ao fim da venda, reduzir o estoque */
 		produtos.forEach( ( produto, quantidade ) -> {
