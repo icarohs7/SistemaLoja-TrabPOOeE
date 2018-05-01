@@ -9,8 +9,24 @@ public class Loja {
 	 */
 	private static final Loja INSTANCE;
 	
+	/**
+	 * The constant ID.
+	 */
+	private static final int ID;
+	
 	static {
 		INSTANCE = new Loja();
+		ID = 1;
+		
+	}
+	
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
+	public static int getID() {
+		return ID;
 	}
 	
 	/**

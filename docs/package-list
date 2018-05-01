@@ -2,4 +2,5 @@ sistemavendas
 sistemavendas.autenticacao
 sistemavendas.catalogo
 sistemavendas.exceptions
-sistemavendas.view
+sistemavendas.view.telas
+sistemavendas.view.util

@@ -9,8 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sistemavendas.Loja;
 import sistemavendas.autenticacao.Operador;
 import sistemavendas.catalogo.CatalogoProdutos;
+import sistemavendas.catalogo.Produto;
 import sistemavendas.view.util.ActionButton;
 import sistemavendas.view.util.FontLabel;
 import sistemavendas.view.util.ViewUtil;
@@ -58,6 +60,13 @@ public class PainelOperadorView extends JFrame {
 		setLocationRelativeTo( null );
 		/* Tornar visível */
 		setVisible( true );
+		
+		CatalogoProdutos.getInstance().CadastrarProduto( new Produto( "Café", 5 ) );
+		Loja.getInstance().getEstoque().incrementarEstoque(
+				CatalogoProdutos.getInstance().getProdutos().get( 0 ),
+				5
+		);
+		operador.registrarItem( CatalogoProdutos.getInstance().getProdutos().get( 0 ) );
 	}
 	
 	/**
@@ -91,7 +100,7 @@ public class PainelOperadorView extends JFrame {
 							.getValorTotal() );
 				}
 				try {
-					Thread.sleep( 1000 );
+					Thread.sleep( 500 );
 				} catch ( InterruptedException ignored ) {
 				}
 			}
@@ -149,8 +158,12 @@ public class PainelOperadorView extends JFrame {
 	 * Finalizar venda.
 	 */
 	public void finalizarVenda() {
-		ViewUtil.showMessage( "VAI TOMAR NO CU! AINDA N TA PRONTO!!!" );
-		System.exit( 0 );
+		if ( operador.getVendaEmAndamento() == null || operador.getVendaEmAndamento().getValorTotal() <= 0 ) {
+			ViewUtil.showMessage( "A venda não contém itens" );
+		} else {
+			setVisible( false );
+			new FinalizarVendaView( "Finalizar venda", operador, this );
+		}
 	}
 	
 	/**

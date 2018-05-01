@@ -171,11 +171,12 @@ public class Operador extends Usuario {
 	/**
 	 * Receber pagamento cartao boolean.
 	 *
-	 * @param numCartao the num cartao
+	 * @param numCartao   the num cartao
+	 * @param senhaCartao the senha cartao
 	 *
 	 * @return the boolean
 	 */
-	public boolean receberPagamentoCartao( String numCartao ) {
+	public boolean receberPagamentoCartao( String numCartao, String senhaCartao ) {
 		return true;
 	}
 	
