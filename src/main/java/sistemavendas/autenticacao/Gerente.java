@@ -17,7 +17,7 @@ public class Gerente extends Usuario {
 	
 	static {
 		usuariosCadastrados = new ArrayList<>();
-		/* Cadastrar o usuário padrão */
+		/* Cadastrar o usuario padrao */
 		usuariosCadastrados.add( new Gerente( "ADMIN", "ADMIN", 1532 ) );
 	}
 	
@@ -27,7 +27,7 @@ public class Gerente extends Usuario {
 	 * @param login Login utilizado para autenticar no sistema
 	 * @param senha Senha utilizada para autenticar no sistema
 	 *
-	 * @return Se a operação foi bem sucedida ou não
+	 * @return Se a operacao foi bem sucedida ou nao
 	 */
 	public static boolean cadastrarUsuario( String login, String senha ) {
 		/* Verificar se o usuário informado já está cadastrado */
@@ -57,11 +57,11 @@ public class Gerente extends Usuario {
 					this.senha = senha;
 					return;
 				} else {
-					throw new SenhaIncorretaException( "A senha informada está incorreta." );
+					throw new SenhaIncorretaException( "A senha informada esta incorreta." );
 				}
 			}
 		}
-		throw new UsuarioNaoExisteException( "O usuário utilizado não está cadastrado" );
+		throw new UsuarioNaoExisteException( "O usuario utilizado nao esta cadastrado" );
 	}
 	
 	/**

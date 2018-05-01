@@ -73,7 +73,7 @@ public class AlterarEstoqueView extends JFrame {
 		DefaultListModel listModel = new DefaultListModel();
 		int i = 0;
 		for ( Produto produto : CatalogoProdutos.getInstance().getProdutos() ) {
-			listModel.addElement( "Índice: " + i + "   Produto: " + produto.getDescricao() );
+			listModel.addElement( "Indice: " + i + "   Produto: " + produto.getDescricao() );
 			i++;
 		}
 		JList listaItens = new JList( listModel );
@@ -116,7 +116,7 @@ public class AlterarEstoqueView extends JFrame {
 			indiceCombo.setSelectedIndex( 0 );
 			incrementoEstoqueField.setText( "" );
 		} catch ( NumberFormatException e ) {
-			ViewUtil.showMessage( "Incremento inválido" );
+			ViewUtil.showMessage( "Incremento invalido" );
 		}
 	}
 }

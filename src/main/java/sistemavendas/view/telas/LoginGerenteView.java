@@ -117,9 +117,9 @@ public class LoginGerenteView extends JFrame {
 			dispose();
 			new PainelGerenteView( "Painel do Gerente", gerente );
 		} catch ( SenhaIncorretaException e ) {
-			JOptionPane.showMessageDialog( null, "A senha está incorreta" );
+			JOptionPane.showMessageDialog( null, "A senha esta incorreta" );
 		} catch ( UsuarioNaoExisteException e ) {
-			JOptionPane.showMessageDialog( null, "O usuário informado não existe" );
+			JOptionPane.showMessageDialog( null, "O usuario informado nao existe" );
 		}
 	}
 }

@@ -114,7 +114,7 @@ public class CadastroOperadorView extends JFrame {
 				dispose();
 				new LoginOperadorView( "Sistema de vendas" );
 			} else {
-				ViewUtil.showMessage( "Não foi possível cadastrar o operador, usuário já existe!" );
+				ViewUtil.showMessage( "Nao foi possivel cadastrar o operador, usuario ja existe!" );
 			}
 		} else {
 			ViewUtil.showMessage( "As senhas devem der iguais!" );

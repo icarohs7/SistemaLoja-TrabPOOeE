@@ -91,7 +91,7 @@ public class FinalizarVendaView extends JFrame {
 		qualValorField = new EnterKeyListenerField( new EnterListener( this::receberPagamento ) );
 		String[] formasPagamento = new String[] {
 				"Pagamento em dinheiro",
-				"Pagamento com cartão",
+				"Pagamento com cartao",
 				"Pagamento com cheque"
 		};
 		formaPagamentoCombo = new JComboBox( formasPagamento );
@@ -101,7 +101,7 @@ public class FinalizarVendaView extends JFrame {
 					oquePagamentoLabel.setText( "Quantia" );
 					break;
 				case 1:
-					oquePagamentoLabel.setText( "Núm. Cartão" );
+					oquePagamentoLabel.setText( "Num. Cartao" );
 					break;
 				case 2:
 					oquePagamentoLabel.setText( "Identidade" );
@@ -114,7 +114,7 @@ public class FinalizarVendaView extends JFrame {
 		
 		root.add( new FontLabel( "Receber Pagamento", ViewUtil.FONT_H1 ), "center,span,wrap" );
 		root.add( new FontLabel(
-				"Preço da compra: R$" + operador.getVendaEmAndamento()
+				"Preco da compra: R$" + operador.getVendaEmAndamento()
 						.getValorTotal(), ViewUtil.FONT_H1 ), "center, span, wrap"
 		);
 		root.add( new JLabel( "Forma de pagamento" ) );
@@ -136,13 +136,13 @@ public class FinalizarVendaView extends JFrame {
 				operador.fecharVenda();
 				dispose();
 			} else if ( formaPagamentoCombo.getSelectedIndex() == 1 ) {
-				String senha = JOptionPane.showInputDialog( "Informe a senha do cartão" );
+				String senha = JOptionPane.showInputDialog( "Informe a senha do cartao" );
 				if ( operador.receberPagamentoCartao( qualValorField.getText(), senha ) ) {
 					ViewUtil.showMessage( "Pagamento feito com sucesso!" );
 					operador.fecharVenda();
 					dispose();
 				} else {
-					ViewUtil.showMessage( "Ocorreu um erro ao processar sua requisição" );
+					ViewUtil.showMessage( "Ocorreu um erro ao processar sua requisicao" );
 				}
 			} else {
 				operador.receberPagamentoCheque( qualValorField.getText() );
@@ -151,9 +151,9 @@ public class FinalizarVendaView extends JFrame {
 				dispose();
 			}
 		} catch ( NumberFormatException e ) {
-			ViewUtil.showMessage( "Quantia inválida!" );
+			ViewUtil.showMessage( "Quantia invalida!" );
 		} catch ( NullPointerException e ) {
-			ViewUtil.showMessage( "Senha do cartão inválida!" );
+			ViewUtil.showMessage( "Senha do cartao invalida!" );
 		} catch ( PagamentoDinheiroException | PagamentoChequeException e ) {
 			ViewUtil.showMessage( e.getMessage() );
 		}

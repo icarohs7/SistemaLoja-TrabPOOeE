@@ -60,13 +60,6 @@ public class PainelOperadorView extends JFrame {
 		setLocationRelativeTo( null );
 		/* Tornar visível */
 		setVisible( true );
-		
-		CatalogoProdutos.getInstance().CadastrarProduto( new Produto( "Café", 5 ) );
-		Loja.getInstance().getEstoque().incrementarEstoque(
-				CatalogoProdutos.getInstance().getProdutos().get( 0 ),
-				5
-		);
-		operador.registrarItem( CatalogoProdutos.getInstance().getProdutos().get( 0 ) );
 	}
 	
 	/**
@@ -114,7 +107,7 @@ public class PainelOperadorView extends JFrame {
 		} );
 		
 		/* Botão adicionar item */
-		JButton adicionarItemBtn = new ActionButton( "Adicionar item à venda", ( evt ) -> {
+		JButton adicionarItemBtn = new ActionButton( "Adicionar item a venda", ( evt ) -> {
 			adicionarItemVenda();
 		} );
 		
@@ -137,7 +130,7 @@ public class PainelOperadorView extends JFrame {
 	 */
 	public void verItensVenda() {
 		if ( operador.getVendaEmAndamento() == null || operador.getVendaEmAndamento().getProdutos().size() < 1 ) {
-			ViewUtil.showMessage( "Não há itens na venda" );
+			ViewUtil.showMessage( "Nao ha itens na venda" );
 		} else {
 			new ItensVendaView( "Produtos", operador.getVendaEmAndamento().getProdutos() );
 		}
@@ -148,7 +141,7 @@ public class PainelOperadorView extends JFrame {
 	 */
 	public void adicionarItemVenda() {
 		if ( CatalogoProdutos.getInstance().getProdutos().size() < 1 ) {
-			ViewUtil.showMessage( "Não há produtos cadastrados, contate o administrador do sistema!" );
+			ViewUtil.showMessage( "Nao ha produtos cadastrados, contate o administrador do sistema!" );
 		} else {
 			new AdicionarItemVendaView( "Adicionar Item", operador );
 		}
@@ -159,7 +152,7 @@ public class PainelOperadorView extends JFrame {
 	 */
 	public void finalizarVenda() {
 		if ( operador.getVendaEmAndamento() == null || operador.getVendaEmAndamento().getValorTotal() <= 0 ) {
-			ViewUtil.showMessage( "A venda não contém itens" );
+			ViewUtil.showMessage( "A venda nao contem itens" );
 		} else {
 			setVisible( false );
 			new FinalizarVendaView( "Finalizar venda", operador, this );

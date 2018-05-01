@@ -53,7 +53,7 @@ public class PainelProdutoView extends JFrame {
 		
 		/* Popular o modelo */
 		CatalogoProdutos.getInstance().getProdutos().forEach( ( produto ) -> {
-			lista.addElement( produto.getDescricao() + "                  Preço: R$" + produto.getPreco() );
+			lista.addElement( produto.getDescricao() + "                  Preco: R$" + produto.getPreco() );
 		} );
 		
 		/* Criar a lista */

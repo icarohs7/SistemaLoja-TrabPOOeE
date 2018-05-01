@@ -62,7 +62,7 @@ public class PainelGerenteView extends JFrame {
 		
 		/* Criar as labels de título */
 		JLabel titulo1 = new FontLabel( "Bem Vindo(a)!", ViewUtil.FONT_H1 );
-		JLabel titulo2 = new FontLabel( "Selecione a operação desejada", ViewUtil.FONT_H1 );
+		JLabel titulo2 = new FontLabel( "Selecione a operacao desejada", ViewUtil.FONT_H1 );
 		
 		/* Label número de produtos */
 		JLabel numProdutosLabel = new JLabel();
@@ -100,7 +100,7 @@ public class PainelGerenteView extends JFrame {
 		/* Botão gerenciar estoque */
 		JButton gerenciarEstoqueBtn = new ActionButton( "Gerenciar Estoque", ( evt ) -> {
 			if ( CatalogoProdutos.getInstance().getProdutos().size() < 1 ) {
-				ViewUtil.showMessage( "Não há produtos cadastrados, cadastre primeiro" );
+				ViewUtil.showMessage( "Nao ha produtos cadastrados, cadastre primeiro" );
 			} else {
 				new PainelEstoqueView( "Estoque" );
 			}

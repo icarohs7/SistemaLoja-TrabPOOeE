@@ -114,7 +114,7 @@ public class CadastroGerenteView extends JFrame {
 				dispose();
 				new LoginGerenteView( "Sistema de vendas" );
 			} else {
-				ViewUtil.showMessage( "Não foi possível cadastrar o gerente, usuário já existe!" );
+				ViewUtil.showMessage( "Não foi possível cadastrar o gerente, usuario ja existe!" );
 			}
 		} else {
 			ViewUtil.showMessage( "As senhas devem der iguais!" );

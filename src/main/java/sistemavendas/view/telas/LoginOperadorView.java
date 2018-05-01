@@ -72,7 +72,7 @@ public class LoginOperadorView extends JFrame {
 		JLabel titulo = new FontLabel( "Informe um login de operador", ViewUtil.FONT_H1 );
 		
 		/* Criar label para avisar sem operador cadastrados */
-		JLabel semUsuariosLabel = new AlertLabel( "Não há nenhum operador cadastrado, registre-se antes!" );
+		JLabel semUsuariosLabel = new AlertLabel( "Nao ha nenhum operador cadastrado, registre-se antes!" );
 		
 		/* Label para login */
 		JLabel loginLabel = new JLabel( "Login" );
@@ -129,7 +129,7 @@ public class LoginOperadorView extends JFrame {
 		} catch ( SenhaIncorretaException e ) {
 			ViewUtil.showMessage( "A senha está incorreta" );
 		} catch ( UsuarioNaoExisteException e ) {
-			ViewUtil.showMessage( "O usuário informado não existe" );
+			ViewUtil.showMessage( "O usuario informado nao existe" );
 		}
 	}
 }

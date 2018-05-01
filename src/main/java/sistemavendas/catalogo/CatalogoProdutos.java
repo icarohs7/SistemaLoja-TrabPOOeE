@@ -55,7 +55,7 @@ public class CatalogoProdutos {
 	public void CadastrarProduto( Produto produto ) {
 		if ( produtos.contains( produto ) ) {
 			throw new ProdutoJaCadastradoException(
-					"O produto " + produto.getDescricao() + " já se encontra cadastrado" );
+					"O produto " + produto.getDescricao() + " ja se encontra cadastrado" );
 		}
 		
 		produtos.add( produto );

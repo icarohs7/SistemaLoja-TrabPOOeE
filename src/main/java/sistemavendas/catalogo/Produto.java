@@ -33,7 +33,7 @@ public class Produto {
 	 */
 	public void setPreco( double preco ) {
 		if ( preco <= 0 ) {
-			throw new PrecoInvalidoException( "Não é possível cadastrar um produto sem valor ou com valor negativo" );
+			throw new PrecoInvalidoException( "Nao e possível cadastrar um produto sem valor ou com valor negativo" );
 		}
 		
 		this.preco = preco;

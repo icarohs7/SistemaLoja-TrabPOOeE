@@ -69,12 +69,12 @@ public class CadastrarProdutoView extends JFrame {
 		JLabel titulo = new FontLabel( "Cadastrar produto", ViewUtil.FONT_H1 );
 		
 		/* Label descricao */
-		JLabel descLabel = new JLabel( "Descrição" );
+		JLabel descLabel = new JLabel( "Descricao" );
 		/* Campo de texto para descrição com ação para o pressionar da tecla enter */
 		descField = new EnterKeyListenerField( new EnterListener( this::cadastrar ) );
 		
 		/* Label preco */
-		JLabel precolabel = new JLabel( "Preço" );
+		JLabel precolabel = new JLabel( "Preco" );
 		/* Campo de texto para preço com ação para o pressionar da tecla enter */
 		precoField = new EnterKeyListenerField( new EnterListener( this::cadastrar ) );
 		
@@ -90,7 +90,7 @@ public class CadastrarProdutoView extends JFrame {
 		/* Botão lista de produtos */
 		JButton listaProdutosBtn = new ActionButton( "Lista de Produtos", ( evt ) -> {
 			if ( CatalogoProdutos.getInstance().getProdutos().size() < 1 ) {
-				ViewUtil.showMessage( "Não há produtos cadastrados!" );
+				ViewUtil.showMessage( "Nao ha produtos cadastrados!" );
 			} else {
 				new PainelProdutoView( "Lista de produtos" );
 			}
@@ -117,7 +117,7 @@ public class CadastrarProdutoView extends JFrame {
 		try {
 			preco = Double.parseDouble( precoField.getText() );
 		} catch ( NumberFormatException e ) {
-			ViewUtil.showMessage( "O preço informado é inválido" );
+			ViewUtil.showMessage( "O preco informado e invalido" );
 			return;
 		}
 		

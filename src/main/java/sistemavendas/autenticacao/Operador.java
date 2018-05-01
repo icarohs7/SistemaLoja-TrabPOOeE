@@ -72,11 +72,11 @@ public class Operador extends Usuario {
 					this.senha = senha;
 					return;
 				} else {
-					throw new SenhaIncorretaException( "A senha informada está incorreta." );
+					throw new SenhaIncorretaException( "A senha informada esta incorreta." );
 				}
 			}
 		}
-		throw new UsuarioNaoExisteException( "O usuário utilizado não está cadastrado" );
+		throw new UsuarioNaoExisteException( "O usuario utilizado nao esta cadastrado" );
 	}
 	
 	/**
@@ -162,7 +162,7 @@ public class Operador extends Usuario {
 	 */
 	public double receberPagamentoDinheiro( double quantia ) {
 		if ( quantia < vendaEmAndamento.getValorTotal() ) {
-			throw new PagamentoDinheiroException( "A quantia n�o capaz de cobrir o valor total." );
+			throw new PagamentoDinheiroException( "A quantia nao capaz de cobrir o valor total." );
 		}
 		quantia -= vendaEmAndamento.getValorTotal();
 		return quantia;
